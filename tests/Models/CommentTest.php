@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\tests\Comments\Models;
+namespace Modules\Comments\tests\Models;
 
 use Modules\Admin\Models\NullAccount;
 use Modules\Comments\Models\Comment;

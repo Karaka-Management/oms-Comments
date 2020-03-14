@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\tests\Comments\Admin;
+namespace Modules\Comments\tests\Admin;
 
 /**
  * @internal
