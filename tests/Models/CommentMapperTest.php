@@ -17,6 +17,7 @@ namespace Modules\Comments\tests\Models;
 use Modules\Admin\Models\NullAccount;
 use Modules\Comments\Models\Comment;
 use Modules\Comments\Models\CommentMapper;
+use Phan\Language\Element\Comment\NullComment;
 
 /**
  * @internal
@@ -29,7 +30,7 @@ class CommentMapperTest extends \PHPUnit\Framework\TestCase
         $comment->setCreatedBy(new NullAccount(1));
         $comment->setTitle('Test Title');
         $comment->setContent('Test Content');
-        $comment->setRef(1);
+        $comment->setRef(null);
         $comment->setList(1);
 
         $id = CommentMapper::create($comment);

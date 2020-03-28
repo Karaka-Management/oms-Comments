@@ -16,6 +16,7 @@ namespace Modules\Comments\tests\Models;
 
 use Modules\Admin\Models\NullAccount;
 use Modules\Comments\Models\Comment;
+use Modules\Comments\Models\NullComment;
 
 /**
  * @internal
@@ -46,8 +47,8 @@ class CommentTest extends \PHPUnit\Framework\TestCase
         $comment->setList(2);
         self::assertEquals(2, $comment->getList());
 
-        $comment->setRef(3);
-        self::assertEquals(3, $comment->getRef());
+        $comment->setRef(new NullComment(3));
+        self::assertEquals(3, $comment->getRef()->getId());
 
         $comment->setTitle('Test Title');
         self::assertEquals('Test Title', $comment->getTitle());
