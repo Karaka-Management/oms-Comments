@@ -17,7 +17,6 @@ namespace Modules\Comments\tests\Models;
 use Modules\Admin\Models\NullAccount;
 use Modules\Comments\Models\Comment;
 use Modules\Comments\Models\CommentMapper;
-use Phan\Language\Element\Comment\NullComment;
 
 /**
  * @internal
