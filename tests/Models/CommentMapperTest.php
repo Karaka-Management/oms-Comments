@@ -17,6 +17,7 @@ namespace Modules\Comments\tests\Models;
 use Modules\Admin\Models\NullAccount;
 use Modules\Comments\Models\Comment;
 use Modules\Comments\Models\CommentMapper;
+use Modules\Comments\Models\CommentList;
 
 /**
  * @internal
@@ -30,7 +31,7 @@ class CommentMapperTest extends \PHPUnit\Framework\TestCase
         $comment->setTitle('Test Title');
         $comment->setContent('Test Content');
         $comment->setRef(null);
-        $comment->setList(1);
+        $comment->setList(new CommentList());
 
         $id = CommentMapper::create($comment);
         self::assertGreaterThan(0, $comment->getId());

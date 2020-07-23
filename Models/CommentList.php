@@ -33,11 +33,20 @@ class CommentList
     protected int $id = 0;
 
     /**
+     * Comments
      *
      * @var array
      * @since 1.0.0
      */
     private array $comments = [];
+
+    /**
+     * Is active
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    protected bool $isActive = true;
 
     /**
      * Get id.
@@ -54,7 +63,7 @@ class CommentList
     /**
      * Get the comments
      *
-     * @return array
+     * @return int[]|Comment[]
      *
      * @since 1.0.0
      */
@@ -75,5 +84,31 @@ class CommentList
     public function addComment($comment) : void
     {
         $this->comments[] = $comment;
+    }
+
+    /**
+     * Is active
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function isActive() : bool
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Set list activity
+     *
+     * @param bool $active Is active
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setActive(bool $active) : void
+    {
+        $this->isActive = $active;
     }
 }

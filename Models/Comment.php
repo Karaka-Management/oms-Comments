@@ -54,7 +54,7 @@ class Comment
     /**
      * Comment list this comment belongs to
      *
-     * @var int
+     * @var int|CommentList
      * @since 1.0.0
      */
     private int $list = 0;
@@ -73,7 +73,7 @@ class Comment
      * @var int
      * @since 1.0.0
      */
-    private int $status = 0;
+    private int $status = CommentStatus::VISIBLE;
 
     /**
      * Content
@@ -94,10 +94,10 @@ class Comment
     /**
      * Comment this is refering to
      *
-     * @var null|self
+     * @var null|int|self
      * @since 1.0.0
      */
-    private ?Comment $ref = null;
+    private $ref = null;
 
     /**
      * Constructor.
@@ -149,15 +149,41 @@ class Comment
     }
 
     /**
-     * Set the list this comment belongs to
+     * Set the status
      *
-     * @param int $list List
+     * @param int $status Status
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function setList(int $list) : void
+    public function setStatus(int $status) : void
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * Get the status
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public function getStatus() : int
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set the list this comment belongs to
+     *
+     * @param int|CommentList $list List
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setList($list) : void
     {
         $this->list = $list;
     }

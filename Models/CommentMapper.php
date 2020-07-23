@@ -56,6 +56,10 @@ final class CommentMapper extends DataMapperAbstract
             'mapper' => AccountMapper::class,
             'self'   => 'comments_comment_created_by',
         ],
+        'list' => [
+            'mapper' => CommentListMapper::class,
+            'self'   => 'comments_comment_list',
+        ],
     ];
 
     /**
