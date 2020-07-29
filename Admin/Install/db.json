@@ -8,6 +8,11 @@
                 "null": false,
                 "primary": true,
                 "autoincrement": true
+            },
+            "comments_list_status": {
+                "name": "comments_list_status",
+                "type": "TINYINT",
+                "null": false
             }
         }
     },

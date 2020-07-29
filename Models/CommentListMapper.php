@@ -34,6 +34,7 @@ final class CommentListMapper extends DataMapperAbstract
      */
     protected static array $columns = [
         'comments_list_id' => ['name' => 'comments_list_id', 'type' => 'int', 'internal' => 'id'],
+        'comments_list_status' => ['name' => 'comments_list_status', 'type' => 'bool', 'internal' => 'isActive'],
     ];
 
     /**
