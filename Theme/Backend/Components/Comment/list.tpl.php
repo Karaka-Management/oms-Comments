@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /** @var \Modules\Comments\Models\Comment[] $comments */
 $comments = $this->commentList->getComments();
 foreach ($comments as $comment) : ?>

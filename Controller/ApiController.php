@@ -15,15 +15,15 @@ declare(strict_types=1);
 namespace Modules\Comments\Controller;
 
 use Modules\Admin\Models\NullAccount;
-use Modules\Comments\Models\CommentList;
 use Modules\Comments\Models\Comment;
+use Modules\Comments\Models\CommentList;
+use Modules\Comments\Models\CommentListMapper;
+use Modules\Comments\Models\CommentMapper;
+use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Message\NotificationLevel;
 use phpOMS\Model\Message\FormValidation;
 use phpOMS\Utils\Parser\Markdown\Markdown;
-use Modules\Comments\Models\CommentMapper;
-use Modules\Comments\Models\CommentListMapper;
 
 /**
  * Comments controller class.
