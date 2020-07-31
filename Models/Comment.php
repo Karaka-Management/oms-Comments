@@ -57,7 +57,7 @@ class Comment
      * @var int|CommentList
      * @since 1.0.0
      */
-    private int $list = 0;
+    private $list = 0;
 
     /**
      * Title
@@ -191,11 +191,11 @@ class Comment
     /**
      * Get the list this comment belongs to
      *
-     * @return int
+     * @return int|CommentList
      *
      * @since 1.0.0
      */
-    public function getList() : int
+    public function getList()
     {
         return $this->list;
     }

@@ -33,13 +33,13 @@ class CommentListTest extends \PHPUnit\Framework\TestCase
     {
         $list    = new CommentList();
         $comment = new Comment();
-        $comment->setTitle('Test Comment');
+        $comment->setTitle('Test Title');
         $comment->setContentRaw('TestRaw');
-        $comment->setContent('TestContent');
+        $comment->setContent('Test Content');
 
         $list->addComment($comment);
-        self::assertEquals('Test Comment', $list->getComments()[0]->getTitle());
-        self::assertEquals('Test Comment', $list->getComments()[0]->getContentRaw());
-        self::assertEquals('Test Comment', $list->getComments()[0]->getcontent());
+        self::assertEquals('Test Title', $list->getComments()[0]->getTitle());
+        self::assertEquals('TestRaw', $list->getComments()[0]->getContentRaw());
+        self::assertEquals('Test Content', $list->getComments()[0]->getcontent());
     }
 }
