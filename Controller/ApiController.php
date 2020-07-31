@@ -23,6 +23,7 @@ use phpOMS\Message\NotificationLevel;
 use phpOMS\Model\Message\FormValidation;
 use phpOMS\Utils\Parser\Markdown\Markdown;
 use Modules\Comments\Models\CommentMapper;
+use Modules\Comments\Models\CommentListMapper;
 
 /**
  * Comments controller class.
@@ -53,6 +54,13 @@ final class ApiController extends Controller
         $this->createModel($request->getHeader()->getAccount(), $commentList, CommentListMapper::class, 'comment_list', $request->getOrigin());
     }
 
+    /**
+     * Create a comment list
+     *
+     * @return CommentList
+     *
+     * @since 1.0.0
+     */
     public function createCommentList() : CommentList
     {
         $list = new CommentList();
