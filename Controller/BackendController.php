@@ -16,7 +16,6 @@ namespace Modules\Comments\Controller;
 
 use Modules\Comments\Models\Comment;
 use Modules\Comments\Models\CommentMapper;
-
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\RequestAbstract;
