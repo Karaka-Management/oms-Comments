@@ -49,7 +49,7 @@ class Comment
      * @var \DateTime
      * @since 1.0.0
      */
-    private \DateTime $createdAt;
+    private \DateTimeImmutable $createdAt;
 
     /**
      * Comment list this comment belongs to
@@ -107,7 +107,7 @@ class Comment
     public function __construct()
     {
         $this->createdBy = new NullAccount();
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     /**
@@ -311,7 +311,7 @@ class Comment
      *
      * @since 1.0.0
      */
-    public function getCreatedAt() : \DateTime
+    public function getCreatedAt() : \DateTimeInterface
     {
         return $this->createdAt;
     }

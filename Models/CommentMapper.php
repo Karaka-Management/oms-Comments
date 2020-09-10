@@ -42,7 +42,7 @@ final class CommentMapper extends DataMapperAbstract
         'comments_comment_list'        => ['name' => 'comments_comment_list',        'type' => 'int',      'internal' => 'list'],
         'comments_comment_ref'         => ['name' => 'comments_comment_ref',         'type' => 'int',      'internal' => 'ref'],
         'comments_comment_created_by'  => ['name' => 'comments_comment_created_by',  'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
-        'comments_comment_created_at'  => ['name' => 'comments_comment_created_at',  'type' => 'DateTime', 'internal' => 'createdAt', 'readonly' => true],
+        'comments_comment_created_at'  => ['name' => 'comments_comment_created_at',  'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
     ];
 
     /**
