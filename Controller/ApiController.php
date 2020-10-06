@@ -50,7 +50,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentListCreate(RequestAbstract $request, ResponseAbstract $response, $data = null): void
+    public function apiCommentListCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         $commentList = $this->createCommentList();
         $this->createModel($request->getHeader()->getAccount(), $commentList, CommentListMapper::class, 'comment_list', $request->getOrigin());
@@ -63,7 +63,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function createCommentList(): CommentList
+    public function createCommentList() : CommentList
     {
         $list = new CommentList();
         // @todo: allow config
@@ -84,7 +84,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentCreate(RequestAbstract $request, ResponseAbstract $response, $data = null): void
+    public function apiCommentCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         if (!empty($val = $this->validateCommentCreate($request))) {
             $response->set('news_create', new FormValidation($val));
@@ -107,7 +107,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    private function validateCommentCreate(RequestAbstract $request): array
+    private function validateCommentCreate(RequestAbstract $request) : array
     {
         $val = [];
         if (($val['title'] = empty($request->getData('title')))
@@ -128,7 +128,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    private function createCommentFromRequest(RequestAbstract $request): Comment
+    private function createCommentFromRequest(RequestAbstract $request) : Comment
     {
         $comment = new Comment();
         $comment->setCreatedBy(new NullAccount($request->getHeader()->getAccount()));
@@ -154,7 +154,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null): void
+    public function apiCommentUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         $old = clone CommentMapper::get((int) $request->getData('id'));
         $new = $this->updateCommentFromRequest($request);
@@ -171,7 +171,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    private function updateCommentFromRequest(RequestAbstract $request): Comment
+    private function updateCommentFromRequest(RequestAbstract $request) : Comment
     {
         $comment = CommentMapper::get((int) $request->getData('id'));
         $comment->setTitle($request->getData('title') ?? $comment->getTitle());
@@ -195,7 +195,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentGet(RequestAbstract $request, ResponseAbstract $response, $data = null): void
+    public function apiCommentGet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         $comment = CommentMapper::get((int) $request->getData('id'));
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment', 'Comment successfully returned', $comment);
@@ -214,7 +214,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentDelete(RequestAbstract $request, ResponseAbstract $response, $data = null): void
+    public function apiCommentDelete(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         $comment = CommentMapper::get((int) $request->getData('id'));
         $this->deleteModel($request->getHeader()->getAccount(), $comment, CommentMapper::class, 'comment', $request->getOrigin());

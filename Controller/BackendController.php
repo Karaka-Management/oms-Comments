@@ -47,7 +47,7 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function setUpCommentEditor(RequestAbstract $request, ResponseAbstract $response, $data = null): void
+    public function setUpCommentEditor(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         $head = $response->get('Content')->getData('head');
         $head->addAsset(AssetType::JS, '/Modules/Editor/Controller.js', ['type' => 'module']);
@@ -65,7 +65,7 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewCommentCreate(RequestAbstract $request, ResponseAbstract $response, $data = null): RenderableInterface
+    public function viewCommentCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/Comments/Theme/Backend/comment-create');
@@ -86,7 +86,7 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewCommentList(RequestAbstract $request, ResponseAbstract $response, $data = null): RenderableInterface
+    public function viewCommentList(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/Comments/Theme/Backend/comment-list');
@@ -104,7 +104,7 @@ final class BackendController extends Controller
      *
      * @since 1.0.0
      */
-    private function validateCommentCreate(RequestAbstract $request): array
+    private function validateCommentCreate(RequestAbstract $request) : array
     {
         $val = [];
         if (($val['title'] = empty($request->getData('title')))
@@ -129,7 +129,7 @@ final class BackendController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentCreate(RequestAbstract $request, ResponseAbstract $response, $data = null): void
+    public function apiCommentCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         if (!empty($val = $this->validateCommentCreate($request))) {
             $response->set('comment_create', new FormValidation($val));
