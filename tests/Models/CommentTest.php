@@ -23,6 +23,10 @@ use Modules\Comments\Models\NullComment;
  */
 class CommentTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers Modules\Comments\Models\Comment
+     * @group module
+     */
     public function testDefault() : void
     {
         $comment = new Comment();
@@ -37,6 +41,10 @@ class CommentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $comment->getContent());
     }
 
+    /**
+     * @covers Modules\Comments\Models\Comment
+     * @group module
+     */
     public function testGetSet() : void
     {
         $comment = new Comment();

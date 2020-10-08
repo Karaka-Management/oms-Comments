@@ -22,6 +22,10 @@ use Modules\Comments\Models\CommentList;
  */
 class CommentListTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers Modules\Comments\Models\CommentList
+     * @group module
+     */
     public function testDefault() : void
     {
         $list = new CommentList();
@@ -29,6 +33,10 @@ class CommentListTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $list->getComments());
     }
 
+    /**
+     * @covers Modules\Comments\Models\CommentList
+     * @group module
+     */
     public function testGetSet() : void
     {
         $list    = new CommentList();
