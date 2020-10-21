@@ -47,8 +47,8 @@ final class CommentListMapper extends DataMapperAbstract
         'comments' => [
             'mapper'   => CommentMapper::class,
             'table'    => 'comments_comment',
-            'external' => 'comments_comment_list',
-            'self'     => null,
+            'self' => 'comments_comment_list',
+            'external'     => null,
         ],
     ];
 
