@@ -53,11 +53,11 @@ final class CommentMapper extends DataMapperAbstract
      */
     protected static array $belongsTo = [
         'createdBy' => [
-            'mapper' => AccountMapper::class,
+            'mapper'     => AccountMapper::class,
             'external'   => 'comments_comment_created_by',
         ],
         'list' => [
-            'mapper' => CommentListMapper::class,
+            'mapper'     => CommentListMapper::class,
             'external'   => 'comments_comment_list',
         ],
     ];

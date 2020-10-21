@@ -45,9 +45,9 @@ final class CommentListMapper extends DataMapperAbstract
      */
     protected static array $hasMany = [
         'comments' => [
-            'mapper'   => CommentMapper::class,
-            'table'    => 'comments_comment',
-            'self' => 'comments_comment_list',
+            'mapper'       => CommentMapper::class,
+            'table'        => 'comments_comment',
+            'self'         => 'comments_comment_list',
             'external'     => null,
         ],
     ];
