@@ -111,8 +111,8 @@ final class ApiController extends Controller
     private function validateCommentCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['title'] = empty($request->getData('title')))
-            || ($val['plain'] = empty($request->getData('plain')))
+        if (($val['plain'] = empty($request->getData('plain')))
+            || ($val['list'] = empty($request->getData('list')))
         ) {
             return $val;
         }
