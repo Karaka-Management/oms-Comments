@@ -20,11 +20,11 @@ use Modules\Comments\Models\Comment;
 use Modules\Comments\Models\CommentMapper;
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
+use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Model\Message\FormValidation;
 use phpOMS\Views\View;
-use phpOMS\Message\Http\RequestStatusCode;
 
 /**
  * Calendar controller class.
