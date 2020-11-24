@@ -131,11 +131,11 @@ final class ApiController extends Controller
      */
     private function createCommentFromRequest(RequestAbstract $request) : Comment
     {
-        $comment = new Comment();
-        $comment->createdBy = new NullAccount($request->header->account);
-        $comment->title = (string) ($request->getData('title') ?? '');
+        $comment             = new Comment();
+        $comment->createdBy  = new NullAccount($request->header->account);
+        $comment->title      = (string) ($request->getData('title') ?? '');
         $comment->contentRaw = (string) ($request->getData('plain') ?? '');
-        $comment->content = Markdown::parse((string) ($request->getData('plain') ?? ''));
+        $comment->content    = Markdown::parse((string) ($request->getData('plain') ?? ''));
         $comment->setRef($request->getData('ref') !== null ? (int) $request->getData('ref') : null);
         $comment->setList((int) ($request->getData('list') ?? 0));
 

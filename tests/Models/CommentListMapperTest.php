@@ -32,9 +32,9 @@ class CommentListMapperTest extends \PHPUnit\Framework\TestCase
     {
         $list = new CommentList();
 
-        $comment = new Comment();
+        $comment            = new Comment();
         $comment->createdBy = new NullAccount(1);
-        $comment->title = 'Test Comment';
+        $comment->title     = 'Test Comment';
 
         $list->addComment($comment);
 

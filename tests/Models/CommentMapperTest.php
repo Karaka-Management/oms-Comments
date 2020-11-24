@@ -30,10 +30,10 @@ class CommentMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testCRUD() : void
     {
-        $comment = new Comment();
+        $comment            = new Comment();
         $comment->createdBy = new NullAccount(1);
-        $comment->title = 'Test Title';
-        $comment->content = 'Test Content';
+        $comment->title     = 'Test Title';
+        $comment->content   = 'Test Content';
         $comment->setRef(null);
         $comment->setList(new CommentList());
 

@@ -6,7 +6,7 @@ foreach ($comments as $comment) : ?>
         <div class="col-xs-12">
             <section class="portlet">
                 <article>
-                    <?= $comment->getContent(); ?>
+                    <?= $comment->content; ?>
                 </article>
             </section>
         </div>
