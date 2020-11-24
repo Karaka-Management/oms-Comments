@@ -33,12 +33,12 @@ class CommentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $comment->getId());
 
         $date = new \DateTime('now');
-        self::assertEquals($date->format('Y-m-d'), $comment->getCreatedAt()->format('Y-m-d'));
-        self::assertEquals(0, $comment->getCreatedBy()->getId());
+        self::assertEquals($date->format('Y-m-d'), $comment->createdAt->format('Y-m-d'));
+        self::assertEquals(0, $comment->createdBy->getId());
         self::assertEquals(0, $comment->getList());
         self::assertEquals(0, $comment->getRef());
-        self::assertEquals('', $comment->getTitle());
-        self::assertEquals('', $comment->getContent());
+        self::assertEquals('', $comment->title);
+        self::assertEquals('', $comment->content);
     }
 
     /**
@@ -49,8 +49,8 @@ class CommentTest extends \PHPUnit\Framework\TestCase
     {
         $comment = new Comment();
 
-        $comment->setCreatedBy(new NullAccount(1));
-        self::assertEquals(1, $comment->getCreatedBy()->getId());
+        $comment->createdBy = new NullAccount(1);
+        self::assertEquals(1, $comment->createdBy->getId());
 
         $comment->setList(2);
         self::assertEquals(2, $comment->getList());
@@ -58,10 +58,10 @@ class CommentTest extends \PHPUnit\Framework\TestCase
         $comment->setRef(new NullComment(3));
         self::assertEquals(3, $comment->getRef()->getId());
 
-        $comment->setTitle('Test Title');
-        self::assertEquals('Test Title', $comment->getTitle());
+        $comment->title = 'Test Title';
+        self::assertEquals('Test Title', $comment->title);
 
-        $comment->setContent('Test Content');
-        self::assertEquals('Test Content', $comment->getContent());
+        $comment->content = 'Test Content';
+        self::assertEquals('Test Content', $comment->content);
     }
 }

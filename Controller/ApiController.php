@@ -54,7 +54,7 @@ final class ApiController extends Controller
     public function apiCommentListCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         $commentList = $this->createCommentList();
-        $this->createModel($request->getHeader()->getAccount(), $commentList, CommentListMapper::class, 'comment_list', $request->getOrigin());
+        $this->createModel($request->header->account, $commentList, CommentListMapper::class, 'comment_list', $request->getOrigin());
     }
 
     /**
@@ -89,13 +89,13 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateCommentCreate($request))) {
             $response->set('news_create', new FormValidation($val));
-            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
+            $response->header->status = RequestStatusCode::R_400;
 
             return;
         }
 
         $comment = $this->createCommentFromRequest($request);
-        $this->createModel($request->getHeader()->getAccount(), $comment, CommentMapper::class, 'comment', $request->getOrigin());
+        $this->createModel($request->header->account, $comment, CommentMapper::class, 'comment', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment', 'Comment successfully created', $comment);
     }
 
@@ -132,10 +132,10 @@ final class ApiController extends Controller
     private function createCommentFromRequest(RequestAbstract $request) : Comment
     {
         $comment = new Comment();
-        $comment->setCreatedBy(new NullAccount($request->getHeader()->getAccount()));
-        $comment->setTitle((string) ($request->getData('title') ?? ''));
-        $comment->setContentRaw($request->getData('plain') ?? '');
-        $comment->setContent(Markdown::parse((string) ($request->getData('plain') ?? '')));
+        $comment->createdBy = new NullAccount($request->header->account);
+        $comment->title = (string) ($request->getData('title') ?? '');
+        $comment->contentRaw = (string) ($request->getData('plain') ?? '');
+        $comment->content = Markdown::parse((string) ($request->getData('plain') ?? ''));
         $comment->setRef($request->getData('ref') !== null ? (int) $request->getData('ref') : null);
         $comment->setList((int) ($request->getData('list') ?? 0));
 
@@ -159,7 +159,7 @@ final class ApiController extends Controller
     {
         $old = clone CommentMapper::get((int) $request->getData('id'));
         $new = $this->updateCommentFromRequest($request);
-        $this->updateModel($request->getHeader()->getAccount(), $old, $new, CommentMapper::class, 'comment', $request->getOrigin());
+        $this->updateModel($request->header->account, $old, $new, CommentMapper::class, 'comment', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment', 'Comment successfully updated', $new);
     }
 
@@ -218,7 +218,7 @@ final class ApiController extends Controller
     public function apiCommentDelete(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         $comment = CommentMapper::get((int) $request->getData('id'));
-        $this->deleteModel($request->getHeader()->getAccount(), $comment, CommentMapper::class, 'comment', $request->getOrigin());
+        $this->deleteModel($request->header->account, $comment, CommentMapper::class, 'comment', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment', 'Comment successfully deleted', $comment);
     }
 }

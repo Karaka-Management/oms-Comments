@@ -41,7 +41,7 @@ class Comment
      * @var Account
      * @since 1.0.0
      */
-    private Account $createdBy;
+    public Account $createdBy;
 
     /**
      * Created at
@@ -49,7 +49,7 @@ class Comment
      * @var \DateTimeImmutable
      * @since 1.0.0
      */
-    private \DateTimeImmutable $createdAt;
+    public \DateTimeImmutable $createdAt;
 
     /**
      * Comment list this comment belongs to
@@ -65,7 +65,7 @@ class Comment
      * @var string
      * @since 1.0.0
      */
-    private $title = '';
+    public string $title = '';
 
     /**
      * Comment status
@@ -81,7 +81,7 @@ class Comment
      * @var string
      * @since 1.0.0
      */
-    private $content = '';
+    public string $content = '';
 
     /**
      * Content raw
@@ -89,7 +89,7 @@ class Comment
      * @var string
      * @since 1.0.0
      */
-    private $contentRaw = '';
+    public string $contentRaw = '';
 
     /**
      * Comment this is refering to
@@ -198,122 +198,6 @@ class Comment
     public function getList()
     {
         return $this->list;
-    }
-
-    /**
-     * Get the title
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getTitle() : string
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set the title
-     *
-     * @param string $title Title
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setTitle(string $title) : void
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * Get the content
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getContent() : string
-    {
-        return $this->content;
-    }
-
-    /**
-     * Get the content
-     *
-     * @param string $content Content
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setContent(string $content) : void
-    {
-        $this->content = $content;
-    }
-
-    /**
-     * Get the raw content
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getContentRaw() : string
-    {
-        return $this->contentRaw;
-    }
-
-    /**
-     * Set the raw content
-     *
-     * @param string $contentRaw Content
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setContentRaw(string $contentRaw) : void
-    {
-        $this->contentRaw = $contentRaw;
-    }
-
-    /**
-     * Get created by
-     *
-     * @return Account
-     *
-     * @since 1.0.0
-     */
-    public function getCreatedBy() : Account
-    {
-        return $this->createdBy;
-    }
-
-    /**
-     * Set the creator
-     *
-     * @param Account $createdBy Creator
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setCreatedBy(Account $createdBy) : void
-    {
-        $this->createdBy = $createdBy;
-    }
-
-    /**
-     * Get created at date time
-     *
-     * @return \DateTimeImmutable
-     *
-     * @since 1.0.0
-     */
-    public function getCreatedAt() : \DateTimeImmutable
-    {
-        return $this->createdAt;
     }
 
     /**

@@ -33,8 +33,8 @@ class CommentListMapperTest extends \PHPUnit\Framework\TestCase
         $list = new CommentList();
 
         $comment = new Comment();
-        $comment->setCreatedBy(new NullAccount(1));
-        $comment->setTitle('Test Comment');
+        $comment->createdBy = new NullAccount(1);
+        $comment->title = 'Test Comment';
 
         $list->addComment($comment);
 
@@ -46,6 +46,6 @@ class CommentListMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($id, $listR->getId());
 
         $actual = $listR->getComments();
-        self::assertEquals($comment->getTitle(), \reset($actual)->getTitle());
+        self::assertEquals($comment->title, \reset($actual)->title);
     }
 }

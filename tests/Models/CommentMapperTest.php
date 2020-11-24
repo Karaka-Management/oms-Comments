@@ -31,9 +31,9 @@ class CommentMapperTest extends \PHPUnit\Framework\TestCase
     public function testCRUD() : void
     {
         $comment = new Comment();
-        $comment->setCreatedBy(new NullAccount(1));
-        $comment->setTitle('Test Title');
-        $comment->setContent('Test Content');
+        $comment->createdBy = new NullAccount(1);
+        $comment->title = 'Test Title';
+        $comment->content = 'Test Content';
         $comment->setRef(null);
         $comment->setList(new CommentList());
 
@@ -43,9 +43,9 @@ class CommentMapperTest extends \PHPUnit\Framework\TestCase
 
         $commentR = CommentMapper::get($comment->getId());
         self::assertEquals($id, $commentR->getId());
-        self::assertEquals($comment->getCreatedBy()->getId(), $commentR->getCreatedBy()->getId());
-        self::assertEquals($comment->getTitle(), $commentR->getTitle());
-        self::assertEquals($comment->getContent(), $commentR->getContent());
+        self::assertEquals($comment->createdBy->getId(), $commentR->createdBy->getId());
+        self::assertEquals($comment->title, $commentR->title);
+        self::assertEquals($comment->content, $commentR->content);
         self::assertEquals($comment->getRef(), $commentR->getRef());
         self::assertEquals($comment->getList()->getId(), $commentR->getList()->getId());
     }
