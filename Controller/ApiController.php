@@ -67,7 +67,6 @@ final class ApiController extends Controller
     public function createCommentList() : CommentList
     {
         $list = new CommentList();
-        // @todo: allow config
 
         return $list;
     }
