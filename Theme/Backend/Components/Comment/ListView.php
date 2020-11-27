@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\Comments\Theme\Backend\Components\Comment;
 
+use Modules\Comments\Models\CommentList;
 use phpOMS\Localization\L11nManager;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
@@ -36,7 +37,7 @@ class ListView extends View
      * @var null|CommentList
      * @since 1.0.0
      */
-    protected $commentList = null;
+    protected ?CommentList $commentList = null;
 
     /**
      * {@inheritdoc}
