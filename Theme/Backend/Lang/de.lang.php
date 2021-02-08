@@ -12,6 +12,6 @@
 declare(strict_types=1);
 
 return ['Comments' => [
-    'Created' => 'Created',
-    'Creator' => 'Creator',
+    'Created' => '',
+    'Creator' => '',
 ]];
