@@ -46,7 +46,31 @@ class CommentList
      * @var bool
      * @since 1.0.0
      */
-    protected bool $isActive = true;
+    public bool $isActive = true;
+
+    /**
+     * Is active
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public bool $allowComment = true;
+
+    /**
+     * Is active
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public bool $allowVoting = true;
+
+    /**
+     * Is active
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public bool $allowEdit = true;
 
     /**
      * Get id.

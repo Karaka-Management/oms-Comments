@@ -9,8 +9,23 @@
                 "primary": true,
                 "autoincrement": true
             },
-            "comments_list_status": {
-                "name": "comments_list_status",
+            "comments_list_active": {
+                "name": "comments_list_active",
+                "type": "TINYINT",
+                "null": false
+            },
+            "comments_list_allow_comment": {
+                "name": "comments_list_allow_comment",
+                "type": "TINYINT",
+                "null": false
+            },
+            "comments_list_allow_voting": {
+                "name": "comments_list_allow_voting",
+                "type": "TINYINT",
+                "null": false
+            },
+            "comments_list_allow_edit": {
+                "name": "comments_list_allow_edit",
                 "type": "TINYINT",
                 "null": false
             }
