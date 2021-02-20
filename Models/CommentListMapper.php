@@ -33,11 +33,11 @@ final class CommentListMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     protected static array $columns = [
-        'comments_list_id'     => ['name' => 'comments_list_id', 'type' => 'int', 'internal' => 'id'],
-        'comments_list_active' => ['name' => 'comments_list_active', 'type' => 'bool', 'internal' => 'isActive'],
+        'comments_list_id'            => ['name' => 'comments_list_id', 'type' => 'int', 'internal' => 'id'],
+        'comments_list_active'        => ['name' => 'comments_list_active', 'type' => 'bool', 'internal' => 'isActive'],
         'comments_list_allow_comment' => ['name' => 'comments_list_allow_comment', 'type' => 'bool', 'internal' => 'allowComment'],
-        'comments_list_allow_voting' => ['name' => 'comments_list_allow_voting', 'type' => 'bool', 'internal' => 'allowVoting'],
-        'comments_list_allow_edit' => ['name' => 'comments_list_allow_edit', 'type' => 'bool', 'internal' => 'allowEdit'],
+        'comments_list_allow_voting'  => ['name' => 'comments_list_allow_voting', 'type' => 'bool', 'internal' => 'allowVoting'],
+        'comments_list_allow_edit'    => ['name' => 'comments_list_allow_edit', 'type' => 'bool', 'internal' => 'allowEdit'],
     ];
 
     /**
