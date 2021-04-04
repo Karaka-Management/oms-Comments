@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Modules\Comments\Models;
 
 use Modules\Admin\Models\Account;
+use Modules\Media\Models\Media;
 use Modules\Admin\Models\NullAccount;
 
 /**
@@ -98,6 +99,14 @@ class Comment
      * @since 1.0.0
      */
     private $ref = null;
+
+    /**
+     * Media files
+     *
+     * @var Media[]
+     * @since 1.0.0
+     */
+    protected array $media = [];
 
     /**
      * Constructor.
@@ -206,5 +215,31 @@ class Comment
     public function jsonSerialize() : array
     {
         return [];
+    }
+
+    /**
+     * Get all media
+     *
+     * @return Media[]
+     *
+     * @since 1.0.0
+     */
+    public function getMedia() : array
+    {
+        return $this->media;
+    }
+
+    /**
+     * Add media
+     *
+     * @param Media $media Media to add
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function addMedia(Media $media) : void
+    {
+        $this->media[] = $media;
     }
 }

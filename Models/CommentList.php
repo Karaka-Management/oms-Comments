@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\Comments\Models;
 
+use Modules\Media\Models\Media;
+
 /**
  * Task class.
  *
@@ -43,21 +45,13 @@ class CommentList
     /**
      * Is active
      *
-     * @var bool
+     * @var int
      * @since 1.0.0
      */
-    public bool $isActive = true;
+    public int $status = CommentListStatus::ACTIVE;
 
     /**
-     * Is active
-     *
-     * @var bool
-     * @since 1.0.0
-     */
-    public bool $allowComment = true;
-
-    /**
-     * Is active
+     * Allow voting
      *
      * @var bool
      * @since 1.0.0
@@ -65,12 +59,20 @@ class CommentList
     public bool $allowVoting = true;
 
     /**
-     * Is active
+     * Allow editing
      *
      * @var bool
      * @since 1.0.0
      */
     public bool $allowEdit = true;
+
+    /**
+     * Allow files
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public bool $allowFiles = true;
 
     /**
      * Get id.
@@ -108,31 +110,5 @@ class CommentList
     public function addComment($comment) : void
     {
         $this->comments[] = $comment;
-    }
-
-    /**
-     * Is active
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     */
-    public function isActive() : bool
-    {
-        return $this->isActive;
-    }
-
-    /**
-     * Set list activity
-     *
-     * @param bool $active Is active
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setActive(bool $active) : void
-    {
-        $this->isActive = $active;
     }
 }

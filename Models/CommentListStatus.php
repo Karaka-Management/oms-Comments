@@ -4,7 +4,7 @@
  *
  * PHP Version 8.0
  *
- * @package   Modules\Comment\Models
+ * @package   Modules\Comments\Models
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -14,25 +14,21 @@ declare(strict_types=1);
 
 namespace Modules\Comments\Models;
 
+use phpOMS\Stdlib\Base\Enum;
+
 /**
- * Null model
+ * Comment Status enum.
  *
- * @package Modules\Comment\Models
+ * @package Modules\Comments\Models
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class NullCommentList extends CommentList
+abstract class CommentListStatus extends Enum
 {
-    /**
-     * Constructor
-     *
-     * @param int $id Model id
-     *
-     * @since 1.0.0
-     */
-    public function __construct(int $id = 0)
-    {
-        $this->id = $id;
-    }
+    public const ACTIVE = 1;
+
+    public const LOCKED = 2;
+
+    public const INACTIVE = 3;
 }

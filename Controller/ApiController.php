@@ -72,6 +72,47 @@ final class ApiController extends Controller
     }
 
     /**
+     * Api method to update comment list
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiCommentListUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    {
+        $old = clone CommentListMapper::get((int) $request->getData('id'));
+        $new = $this->updateCommentListFromRequest($request);
+        $this->updateModel($request->header->account, $old, $new, CommentMapper::class, 'comment_list', $request->getOrigin());
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment List', 'Comment list successfully updated', $new);
+    }
+
+    /**
+     * Method to update comment from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return Comment
+     *
+     * @since 1.0.0
+     */
+    private function updateCommentListFromRequest(RequestAbstract $request) : Comment
+    {
+        $list = CommentListMapper::get((int) $request->getData('id'));
+        $list->allowEdit = (bool) ($request->getData('allow_edit') ?? $list->allowEdit);
+        $list->allowVoting = (bool) ($request->getData('allow_voting') ?? $list->allowVoting);
+        $list->allowFiles = (bool) ($request->getData('allow_upload') ?? $list->allowFiles);
+        $list->status = (int) ($request->getData('commentlist_status') ?? $list->status);
+
+        return $list;
+    }
+
+    /**
      * Api method to create comment
      *
      * @param RequestAbstract  $request  Request

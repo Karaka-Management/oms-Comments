@@ -16,6 +16,7 @@ namespace Modules\Comments\Models;
 
 use Modules\Admin\Models\AccountMapper;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
+use Modules\Media\Models\MediaMapper;
 
 /**
  * Mapper class.
@@ -59,6 +60,21 @@ final class CommentMapper extends DataMapperAbstract
         'list' => [
             'mapper'     => CommentListMapper::class,
             'external'   => 'comments_comment_list',
+        ],
+    ];
+
+    /**
+     * Has many relation.
+     *
+     * @var array<string, array{mapper:string, table:string, self?:?string, external?:?string, column?:string}>
+     * @since 1.0.0
+     */
+    protected static array $hasMany = [
+        'media'        => [
+            'mapper'   => MediaMapper::class,
+            'table'    => 'comments_comment_media',
+            'external' => 'comments_comment_media_dst',
+            'self'     => 'comments_comment_media_src',
         ],
     ];
 

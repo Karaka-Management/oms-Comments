@@ -9,13 +9,8 @@
                 "primary": true,
                 "autoincrement": true
             },
-            "comments_list_active": {
-                "name": "comments_list_active",
-                "type": "TINYINT",
-                "null": false
-            },
-            "comments_list_allow_comment": {
-                "name": "comments_list_allow_comment",
+            "comments_list_status": {
+                "name": "comments_list_status",
                 "type": "TINYINT",
                 "null": false
             },
@@ -26,6 +21,11 @@
             },
             "comments_list_allow_edit": {
                 "name": "comments_list_allow_edit",
+                "type": "TINYINT",
+                "null": false
+            },
+            "comments_list_allow_files": {
+                "name": "comments_list_allow_files",
                 "type": "TINYINT",
                 "null": false
             }
@@ -86,6 +86,63 @@
             "comments_comment_created_at": {
                 "name": "comments_comment_created_at",
                 "type": "DATETIME",
+                "null": false
+            }
+        }
+    },
+    "comments_comment_media": {
+        "name": "comments_comment_media",
+        "fields": {
+            "comments_comment_media_id": {
+                "name": "comments_comment_media_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "comments_comment_media_src": {
+                "name": "comments_comment_media_src",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "comments_comment",
+                "foreignKey": "comments_comment_id"
+            },
+            "comments_comment_media_dst": {
+                "name": "comments_comment_media_dst",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "media",
+                "foreignKey": "media_id"
+            }
+        }
+    },
+    "comments_comment_vote": {
+        "name": "comments_comment_vote",
+        "fields": {
+            "comments_comment_vote_id": {
+                "name": "comments_comment_vote_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "comments_comment_vote_src": {
+                "name": "comments_comment_vote_src",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "comments_comment",
+                "foreignKey": "comments_comment_id"
+            },
+            "comments_comment_vote_dst": {
+                "name": "comments_comment_vote_dst",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "account",
+                "foreignKey": "account_id"
+            },
+            "comments_comment_vote_score": {
+                "name": "comments_comment_vote_score",
+                "type": "TINYINT",
                 "null": false
             }
         }
