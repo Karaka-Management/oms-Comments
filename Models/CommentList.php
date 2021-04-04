@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace Modules\Comments\Models;
 
-use Modules\Media\Models\Media;
-
 /**
  * Task class.
  *

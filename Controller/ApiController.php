@@ -103,11 +103,11 @@ final class ApiController extends Controller
      */
     private function updateCommentListFromRequest(RequestAbstract $request) : Comment
     {
-        $list = CommentListMapper::get((int) $request->getData('id'));
-        $list->allowEdit = (bool) ($request->getData('allow_edit') ?? $list->allowEdit);
+        $list              = CommentListMapper::get((int) $request->getData('id'));
+        $list->allowEdit   = (bool) ($request->getData('allow_edit') ?? $list->allowEdit);
         $list->allowVoting = (bool) ($request->getData('allow_voting') ?? $list->allowVoting);
-        $list->allowFiles = (bool) ($request->getData('allow_upload') ?? $list->allowFiles);
-        $list->status = (int) ($request->getData('commentlist_status') ?? $list->status);
+        $list->allowFiles  = (bool) ($request->getData('allow_upload') ?? $list->allowFiles);
+        $list->status      = (int) ($request->getData('commentlist_status') ?? $list->status);
 
         return $list;
     }

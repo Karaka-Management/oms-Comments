@@ -15,8 +15,8 @@ declare(strict_types=1);
 namespace Modules\Comments\Models;
 
 use Modules\Admin\Models\AccountMapper;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
 use Modules\Media\Models\MediaMapper;
+use phpOMS\DataStorage\Database\DataMapperAbstract;
 
 /**
  * Mapper class.

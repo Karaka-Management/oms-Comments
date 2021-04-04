@@ -15,8 +15,8 @@ declare(strict_types=1);
 namespace Modules\Comments\Models;
 
 use Modules\Admin\Models\Account;
-use Modules\Media\Models\Media;
 use Modules\Admin\Models\NullAccount;
+use Modules\Media\Models\Media;
 
 /**
  * Task class.
