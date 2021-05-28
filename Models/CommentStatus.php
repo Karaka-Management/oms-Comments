@@ -28,5 +28,9 @@ abstract class CommentStatus extends Enum
 {
     public const VISIBLE = 1;
 
-    public const BLOCKED = 2;
+    public const LOCKED = 2;
+
+    public const INVISIBLE = 3;
+
+    public const SHADOW = 4;
 }
