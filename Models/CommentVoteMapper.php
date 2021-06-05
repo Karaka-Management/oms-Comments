@@ -34,8 +34,8 @@ final class CommentVoteMapper extends DataMapperAbstract
      */
     protected static array $columns = [
         'comments_comment_vote_id'          => ['name' => 'comments_comment_vote_id',          'type' => 'int',      'internal' => 'id'],
-        'comments_comment_vote_score'  => ['name' => 'comments_comment_vote_score',  'type' => 'int',      'internal' => 'score'],
-        'comments_comment_vote_comment'  => ['name' => 'comments_comment_vote_comment',  'type' => 'int',      'internal' => 'comment', 'readonly' => true],
+        'comments_comment_vote_score'       => ['name' => 'comments_comment_vote_score',  'type' => 'int',      'internal' => 'score'],
+        'comments_comment_vote_comment'     => ['name' => 'comments_comment_vote_comment',  'type' => 'int',      'internal' => 'comment', 'readonly' => true],
         'comments_comment_vote_created_by'  => ['name' => 'comments_comment_vote_created_by',  'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
         'comments_comment_vote_created_at'  => ['name' => 'comments_comment_vote_created_at',  'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
     ];

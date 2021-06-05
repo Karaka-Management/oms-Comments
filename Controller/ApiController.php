@@ -18,12 +18,12 @@ namespace Modules\Comments\Controller;
 
 use Modules\Admin\Models\NullAccount;
 use Modules\Comments\Models\Comment;
-use Modules\Comments\Models\CommentVote;
-use Modules\Comments\Models\NullCommentVote;
-use Modules\Comments\Models\CommentVoteMapper;
 use Modules\Comments\Models\CommentList;
 use Modules\Comments\Models\CommentListMapper;
 use Modules\Comments\Models\CommentMapper;
+use Modules\Comments\Models\CommentVote;
+use Modules\Comments\Models\CommentVoteMapper;
+use Modules\Comments\Models\NullCommentVote;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
@@ -290,14 +290,14 @@ final class ApiController extends Controller
         $vote = CommentVoteMapper::findVote((int) $reqeust->getData('id'), $request->header->account);
 
         if ($vote instanceof NullCommentVote) {
-            $new = new CommentVote();
-            $new->score = (int) $request->getData('type');
+            $new            = new CommentVote();
+            $new->score     = (int) $request->getData('type');
             $new->createdBy = $request->header->account;
 
             $this->createModel($request->header->account, $new, CommentVoteMapper::class, 'comment_vote', $request->getOrigin());
             $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);
         } else {
-            $new = clone $vote;
+            $new        = clone $vote;
             $new->score = (int) $request->getData('type');
 
             $this->updateModel($request->header->account, $vote, $new, CommentVoteMapper::class, 'comment_vote', $request->getOrigin());
