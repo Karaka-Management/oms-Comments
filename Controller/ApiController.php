@@ -18,6 +18,9 @@ namespace Modules\Comments\Controller;
 
 use Modules\Admin\Models\NullAccount;
 use Modules\Comments\Models\Comment;
+use Modules\Comments\Models\CommentVote;
+use Modules\Comments\Models\NullCommentVote;
+use Modules\Comments\Models\CommentVoteMapper;
 use Modules\Comments\Models\CommentList;
 use Modules\Comments\Models\CommentListMapper;
 use Modules\Comments\Models\CommentMapper;
@@ -260,5 +263,66 @@ final class ApiController extends Controller
         $comment = CommentMapper::get((int) $request->getData('id'));
         $this->deleteModel($request->header->account, $comment, CommentMapper::class, 'comment', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment', 'Comment successfully deleted', $comment);
+    }
+
+    /**
+     * Api method to change vote
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    private function apiChangeCommentVote(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    {
+        if (!empty($val = $this->validateAnswerVote($request))) {
+            $response->set('qa_answer_vote', new FormValidation($val));
+            $response->header->status = RequestStatusCode::R_400;
+
+            return;
+        }
+
+        $vote = CommentVoteMapper::findVote((int) $reqeust->getData('id'), $request->header->account);
+
+        if ($vote instanceof NullCommentVote) {
+            $new = new CommentVote();
+            $new->score = (int) $request->getData('type');
+            $new->createdBy = $request->header->account;
+
+            $this->createModel($request->header->account, $new, CommentVoteMapper::class, 'comment_vote', $request->getOrigin());
+            $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);
+        } else {
+            $new = clone $vote;
+            $new->score = (int) $request->getData('type');
+
+            $this->updateModel($request->header->account, $vote, $new, CommentVoteMapper::class, 'comment_vote', $request->getOrigin());
+            $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Vote successfully changed.', $new);
+        }
+    }
+
+    /**
+     * Validate answer vote request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool> Returns the validation array of the request
+     *
+     * @since 1.0.0
+     */
+    private function validateCommentVote(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['id'] = ($request->getData('id') === null))
+            || ($val['type'] = ($request->getData('type', 'int') < -1 || $request->getData('type') > 1))
+        ) {
+            return $val;
+        }
+
+        return [];
     }
 }

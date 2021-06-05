@@ -126,23 +126,28 @@
                 "primary": true,
                 "autoincrement": true
             },
-            "comments_comment_vote_src": {
-                "name": "comments_comment_vote_src",
+            "comments_comment_vote_score": {
+                "name": "comments_comment_vote_score",
+                "type": "TINYINT",
+                "null": false
+            },
+            "comments_comment_vote_comment": {
+                "name": "comments_comment_vote_comment",
                 "type": "INT",
                 "null": false,
                 "foreignTable": "comments_comment",
                 "foreignKey": "comments_comment_id"
             },
-            "comments_comment_vote_dst": {
-                "name": "comments_comment_vote_dst",
+            "comments_comment_vote_created_by": {
+                "name": "comments_comment_vote_created_by",
                 "type": "INT",
                 "null": false,
                 "foreignTable": "account",
                 "foreignKey": "account_id"
             },
-            "comments_comment_vote_score": {
-                "name": "comments_comment_vote_score",
-                "type": "TINYINT",
+            "comments_comment_vote_created_at": {
+                "name": "comments_comment_vote_created_at",
+                "type": "DATETIME",
                 "null": false
             }
         }
