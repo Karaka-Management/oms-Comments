@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use Modules\Comments\Models\CommentListStatus;
+use phpOMS\Uri\UriFactory;
 
 /** @var \Modules\Comments\Models\Comment[] $comments */
 $comments = $this->commentList->getComments();
@@ -10,32 +11,32 @@ $comments = $this->commentList->getComments();
     <div class="col-xs-12">
         <section class="portlet">
             <div class="portlet-body">
-                <form method="POST" action="<?= \phpOMS\Uri\UriFactory::build('{/api}comment/list?id=' . $this->commentList->getId() . '{?}&csrf={$CSRF}'); ?>">
+                <form id="iComentListSettings" method="POST" action="<?= UriFactory::build('{/api}comment/list?id=' . $this->commentList->getId() . '{?}&csrf={$CSRF}'); ?>">
                         <div class="form-group">
                             <div class="input-control">
                                 <select name="commentlist_status">
-                                    <option value="<?= CommentListStatus::ACTIVE; ?>"><?= $this->getHtml('lstatus-' . CommentListStatus::ACTIVE); ?>
-                                    <option value="<?= CommentListStatus::INACTIVE; ?>"><?= $this->getHtml('lstatus-' . CommentListStatus::INACTIVE); ?>
-                                    <option value="<?= CommentListStatus::LOCKED; ?>"><?= $this->getHtml('lstatus-' . CommentListStatus::LOCKED); ?>
+                                    <option value="<?= CommentListStatus::ACTIVE; ?>"<?= $this->commentList->status === CommentListStatus::ACTIVE ? ' selected' : ''; ?>><?= $this->getHtml('lstatus-' . CommentListStatus::ACTIVE); ?>
+                                    <option value="<?= CommentListStatus::INACTIVE; ?>"<?= $this->commentList->status === CommentListStatus::INACTIVE ? ' selected' : ''; ?>><?= $this->getHtml('lstatus-' . CommentListStatus::INACTIVE); ?>
+                                    <option value="<?= CommentListStatus::LOCKED; ?>"<?= $this->commentList->status === CommentListStatus::LOCKED ? ' selected' : ''; ?>><?= $this->getHtml('lstatus-' . CommentListStatus::LOCKED); ?>
                                 </select>
                             </div>
                             <div class="input-control">
-                                <label class="checkbox" for="iComment">
-                                    <input id="iComment" type="checkbox" name="allow_voting" value="1">
+                                <label class="checkbox" for="iCommentVoting">
+                                    <input id="iCommentVoting" type="checkbox" name="allow_voting" value="1"<?= $this->commentList->allowVoting ? ' checked' : ''; ?>>
                                     <span class="checkmark"></span>
                                     <?= $this->getHtml('Voting'); ?>
                                 </label>
                             </div>
                             <div class="input-control">
-                                <label class="checkbox" for="iComment">
-                                    <input id="iComment" type="checkbox" name="allow_edit" value="1">
+                                <label class="checkbox" for="iCommentEdit">
+                                    <input id="iCommentEdit" type="checkbox" name="allow_edit" value="1"<?= $this->commentList->allowEdit ? ' checked' : ''; ?>>
                                     <span class="checkmark"></span>
                                     <?= $this->getHtml('Edit'); ?>
                                 </label>
                             </div>
                             <div class="input-control">
-                                <label class="checkbox" for="iComment">
-                                    <input id="iComment" type="checkbox" name="allow_upload" value="1">
+                                <label class="checkbox" for="iCommentFiles">
+                                    <input id="iCommentFiles" type="checkbox" name="allow_upload" value="1"<?= $this->commentList->allowFiles ? ' checked' : ''; ?>>
                                     <span class="checkmark"></span>
                                     <?= $this->getHtml('Upload'); ?>
                                 </label>
@@ -55,17 +56,17 @@ foreach ($comments as $comment) : ?>
     <div class="row">
         <div class="col-xs-12">
             <section class="portlet">
-            	<div class="portlet-body">
-	                <article>
-	                    <?= $comment->content; ?>
-	                </article>
-            	</div>
-            	<div class="portlet-foot">
-            		<?= $this->printHtml(
+                <div class="portlet-body">
+                    <article>
+                        <?= $comment->content; ?>
+                    </article>
+                </div>
+                <div class="portlet-foot">
+                    <?= $this->printHtml(
                         \sprintf('%3$s %2$s %1$s', $comment->createdBy->name1, $comment->createdBy->name2, $comment->createdBy->name3)
                     ); ?>
-            		<span class="floatRight"><?= $comment->createdAt->format('Y-m-d H:i:s'); ?></span>
-            	</div>
+                    <span class="floatRight"><?= $comment->createdAt->format('Y-m-d H:i:s'); ?></span>
+                </div>
             </section>
         </div>
     </div>

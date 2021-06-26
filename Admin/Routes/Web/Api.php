@@ -26,6 +26,17 @@ return [
             ],
         ],
     ],
+    '^.*/comment/list(\?.*|$)' => [
+        [
+            'dest'       => '\Modules\Comments\Controller\ApiController:apiCommentListUpdate',
+            'verb'       => RouteVerb::SET,
+            'permission' => [
+                'module' => ApiController::MODULE_NAME,
+                'type'   => PermissionType::CREATE,
+                'state'  => PermissionState::LIST,
+            ],
+        ],
+    ],
     '^.*/comment/vote(\?.*|$)' => [
         [
             'dest'       => '\Modules\Comments\Controller\ApiController:apiChangeCommentVote',

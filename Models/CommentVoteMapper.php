@@ -63,4 +63,26 @@ final class CommentVoteMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     protected static string $primaryField = 'comments_comment_vote_id';
+
+    /**
+     * Find vote for comment from user
+     *
+     * @param int $comment Comment id
+     * @param int $account Account id
+     *
+     * @return CommentVote
+     *
+     * @since 1.0.0
+     */
+    public static function findVote(int $comment, int $account) : CommentVote
+    {
+        $depth = 3;
+        $query = self::getQuery();
+        $query->where(self::$table . '_d' . $depth . '.comments_comment_vote_created_by', '=', $account)
+            ->andWhere(self::$table . '_d' . $depth . '.comments_comment_vote_comment', '=', $comment);
+
+        $results = self::getAllByQuery($query);
+
+        return \reset($results);
+    }
 }

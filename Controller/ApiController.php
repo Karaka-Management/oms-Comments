@@ -91,7 +91,7 @@ final class ApiController extends Controller
     {
         $old = clone CommentListMapper::get((int) $request->getData('id'));
         $new = $this->updateCommentListFromRequest($request);
-        $this->updateModel($request->header->account, $old, $new, CommentMapper::class, 'comment_list', $request->getOrigin());
+        $this->updateModel($request->header->account, $old, $new, CommentListMapper::class, 'comment_list', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment List', 'Comment list successfully updated', $new);
     }
 
@@ -100,16 +100,16 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract $request Request
      *
-     * @return Comment
+     * @return CommentList
      *
      * @since 1.0.0
      */
-    private function updateCommentListFromRequest(RequestAbstract $request) : Comment
+    private function updateCommentListFromRequest(RequestAbstract $request) : CommentList
     {
         $list              = CommentListMapper::get((int) $request->getData('id'));
-        $list->allowEdit   = (bool) ($request->getData('allow_edit') ?? $list->allowEdit);
-        $list->allowVoting = (bool) ($request->getData('allow_voting') ?? $list->allowVoting);
-        $list->allowFiles  = (bool) ($request->getData('allow_upload') ?? $list->allowFiles);
+        $list->allowEdit   = (bool) ($request->getData('allow_edit') ?? false);
+        $list->allowVoting = (bool) ($request->getData('allow_voting') ?? false);
+        $list->allowFiles  = (bool) ($request->getData('allow_upload') ?? false);
         $list->status      = (int) ($request->getData('commentlist_status') ?? $list->status);
 
         return $list;
@@ -280,19 +280,20 @@ final class ApiController extends Controller
      */
     private function apiChangeCommentVote(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
-        if (!empty($val = $this->validateAnswerVote($request))) {
+        if (!empty($val = $this->validateCommentVote($request))) {
             $response->set('qa_answer_vote', new FormValidation($val));
             $response->header->status = RequestStatusCode::R_400;
 
             return;
         }
 
-        $vote = CommentVoteMapper::findVote((int) $reqeust->getData('id'), $request->header->account);
+        $vote = CommentVoteMapper::findVote((int) $request->getData('id'), $request->header->account);
 
         if ($vote instanceof NullCommentVote) {
             $new            = new CommentVote();
             $new->score     = (int) $request->getData('type');
-            $new->createdBy = $request->header->account;
+            $new->comment   = (int) $request->getData('id');
+            $new->createdBy = new NullAccount($request->header->account);
 
             $this->createModel($request->header->account, $new, CommentVoteMapper::class, 'comment_vote', $request->getOrigin());
             $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);
