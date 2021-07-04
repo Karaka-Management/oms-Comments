@@ -19,7 +19,7 @@ use Modules\Admin\Models\NullAccount;
 use Modules\Media\Models\Media;
 
 /**
- * Task class.
+ * Comment class.
  *
  * @package Modules\Comments\Models
  * @license OMS License 1.0

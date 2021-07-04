@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Modules\Comments\Models;
 
 /**
- * Task class.
+ * Comment list class.
  *
  * @package Modules\Comments\Models
  * @license OMS License 1.0

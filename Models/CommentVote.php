@@ -18,7 +18,7 @@ use Modules\Admin\Models\Account;
 use Modules\Admin\Models\NullAccount;
 
 /**
- * Task class.
+ * Comment vote class.
  *
  * @package Modules\Comments\Models
  * @license OMS License 1.0
