@@ -182,6 +182,20 @@ final class ApiController extends Controller
         $comment->setRef($request->getData('ref') !== null ? (int) $request->getData('ref') : null);
         $comment->setList((int) ($request->getData('list') ?? 0));
 
+        if (!empty($uploadedFiles = $request->getFiles() ?? [])) {
+            $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
+                [''],
+                $uploadedFiles,
+                $request->header->account,
+                __DIR__ . '/../../../Modules/Media/Files/Modules/Comments',
+                '/Modules/Comments',
+            );
+
+            foreach ($uploaded as $media) {
+                $comment->addMedia($media);
+            }
+        }
+
         return $comment;
     }
 

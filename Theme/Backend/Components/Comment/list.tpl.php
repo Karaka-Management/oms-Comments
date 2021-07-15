@@ -57,11 +57,13 @@ foreach ($comments as $comment) : ?>
         <div class="col-xs-12">
             <section class="portlet">
                 <div class="portlet-body">
-                    <article>
-                        <?= $comment->content; ?>
-                    </article>
+                    <article><?= $comment->content; ?></article>
                 </div>
                 <div class="portlet-foot">
+                    <?php $files = $comment->getMedia(); foreach ($files as $file) : ?>
+                        <span class="file"><?= $this->printHtml($file->name); ?></span>
+                    <?php endforeach; ?>
+
                     <?= $this->printHtml(
                         \sprintf('%3$s %2$s %1$s', $comment->createdBy->name1, $comment->createdBy->name2, $comment->createdBy->name3)
                     ); ?>

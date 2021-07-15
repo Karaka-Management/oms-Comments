@@ -21,6 +21,7 @@
         "Editor": "1.0.0"
     },
     "providing": {
+        "Media": "1.0.0"
     },
     "load": [
     ]
