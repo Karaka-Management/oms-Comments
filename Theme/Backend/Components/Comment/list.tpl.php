@@ -61,7 +61,7 @@ foreach ($comments as $comment) : ?>
                 </div>
                 <div class="portlet-foot">
                     <?php $files = $comment->getMedia(); foreach ($files as $file) : ?>
-                        <span class="file"><?= $this->printHtml($file->name); ?></span>
+                         <span><a class="content" href="<?= UriFactory::build('{/prefix}media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
                     <?php endforeach; ?>
 
                     <?= $this->printHtml(
