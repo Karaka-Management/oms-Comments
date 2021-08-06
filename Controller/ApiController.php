@@ -24,6 +24,7 @@ use Modules\Comments\Models\CommentMapper;
 use Modules\Comments\Models\CommentVote;
 use Modules\Comments\Models\CommentVoteMapper;
 use Modules\Comments\Models\NullCommentVote;
+use Modules\Media\Models\NullMedia;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
@@ -193,6 +194,12 @@ final class ApiController extends Controller
 
             foreach ($uploaded as $media) {
                 $comment->addMedia($media);
+            }
+        }
+
+        if (!empty($mediaFiles = $request->getDataJson('media') ?? [])) {
+            foreach ($mediaFiles as $media) {
+                $comment->addMedia(new NullMedia($media));
             }
         }
 
