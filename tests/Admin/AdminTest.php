@@ -19,7 +19,7 @@ namespace Modules\Comments\tests\Admin;
  */
 class AdminTest extends \PHPUnit\Framework\TestCase
 {
-    protected const MODULE_NAME = 'Comments';
+    protected const NAME = 'Comments';
 
     protected const URI_LOAD = '';
 

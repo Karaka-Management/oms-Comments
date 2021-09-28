@@ -23,7 +23,7 @@ return [
             'dest'       => '\Modules\Comments\Controller\ApiController:apiCommentCreate',
             'verb'       => RouteVerb::PUT,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::COMMENT,
             ],
@@ -32,7 +32,7 @@ return [
             'dest'       => '\Modules\Comments\Controller\ApiController:apiCommentUpdate',
             'verb'       => RouteVerb::SET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::COMMENT,
             ],
@@ -43,7 +43,7 @@ return [
             'dest'       => '\Modules\Comments\Controller\ApiController:apiCommentListUpdate',
             'verb'       => RouteVerb::SET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::LIST,
             ],
@@ -54,7 +54,7 @@ return [
             'dest'       => '\Modules\Comments\Controller\ApiController:apiChangeCommentVote',
             'verb'       => RouteVerb::PUT | RouteVerb::SET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::VOTE,
             ],
