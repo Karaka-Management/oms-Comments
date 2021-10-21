@@ -38,10 +38,10 @@ class CommentVote
     /**
      * Account.
      *
-     * @var Account
+     * @var int
      * @since 1.0.0
      */
-    public Account $createdBy;
+    public int $createdBy = 0;
 
     /**
      * Created at
@@ -74,7 +74,18 @@ class CommentVote
      */
     public function __construct()
     {
-        $this->createdBy = new NullAccount();
         $this->createdAt = new \DateTimeImmutable();
+    }
+
+    /**
+     * Get id.
+     *
+     * @return int Model id
+     *
+     * @since 1.0.0
+     */
+    public function getId() : int
+    {
+        return $this->id;
     }
 }

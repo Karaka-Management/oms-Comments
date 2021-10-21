@@ -22,15 +22,24 @@ use Modules\Comments\Models\CommentList;
  */
 class CommentListTest extends \PHPUnit\Framework\TestCase
 {
+    private CommentList $list;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function setUp() : void
+    {
+        $this->list = new CommentList();
+    }
+
     /**
      * @covers Modules\Comments\Models\CommentList
      * @group module
      */
     public function testDefault() : void
     {
-        $list = new CommentList();
-        self::assertEquals(0, $list->getId());
-        self::assertEquals([], $list->getComments());
+        self::assertEquals(0, $this->list->getId());
+        self::assertEquals([], $this->list->getComments());
     }
 
     /**
@@ -39,15 +48,14 @@ class CommentListTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetSet() : void
     {
-        $list                = new CommentList();
         $comment             = new Comment();
         $comment->title      = 'Test Title';
         $comment->contentRaw = 'TestRaw';
         $comment->content    = 'Test Content';
 
-        $list->addComment($comment);
-        self::assertEquals('Test Title', $list->getComments()[0]->title);
-        self::assertEquals('TestRaw', $list->getComments()[0]->contentRaw);
-        self::assertEquals('Test Content', $list->getComments()[0]->content);
+        $this->list->addComment($comment);
+        self::assertEquals('Test Title', $this->list->getComments()[0]->title);
+        self::assertEquals('TestRaw', $this->list->getComments()[0]->contentRaw);
+        self::assertEquals('Test Content', $this->list->getComments()[0]->content);
     }
 }

@@ -34,8 +34,8 @@ class CommentMapperTest extends \PHPUnit\Framework\TestCase
         $comment->createdBy = new NullAccount(1);
         $comment->title     = 'Test Title';
         $comment->content   = 'Test Content';
-        $comment->setRef(null);
-        $comment->setList(new CommentList());
+        $comment->ref = null;
+        $comment->list = new CommentList();
 
         $id = CommentMapper::create($comment);
         self::assertGreaterThan(0, $comment->getId());
@@ -46,7 +46,7 @@ class CommentMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($comment->createdBy->getId(), $commentR->createdBy->getId());
         self::assertEquals($comment->title, $commentR->title);
         self::assertEquals($comment->content, $commentR->content);
-        self::assertEquals($comment->getRef(), $commentR->getRef());
-        self::assertEquals($comment->getList()->getId(), $commentR->getList()->getId());
+        self::assertEquals($comment->ref, $commentR->ref);
+        self::assertEquals($comment->list->getId(), $commentR->list->getId());
     }
 }

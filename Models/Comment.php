@@ -58,7 +58,7 @@ class Comment
      * @var int|CommentList
      * @since 1.0.0
      */
-    private $list = 0;
+    public $list = 0;
 
     /**
      * Title
@@ -98,7 +98,7 @@ class Comment
      * @var null|int|self
      * @since 1.0.0
      */
-    private $ref = null;
+    public $ref = null;
 
     /**
      * Media files
@@ -132,32 +132,6 @@ class Comment
     }
 
     /**
-     * Reference id
-     *
-     * @param mixed $ref Reference
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setRef($ref) : void
-    {
-        $this->ref = $ref;
-    }
-
-    /**
-     * Get the reference
-     *
-     * @return mixed
-     *
-     * @since 1.0.0
-     */
-    public function getRef()
-    {
-        return $this->ref;
-    }
-
-    /**
      * Set the status
      *
      * @param int $status Status
@@ -183,38 +157,22 @@ class Comment
         return $this->status;
     }
 
-    /**
-     * Set the list this comment belongs to
-     *
-     * @param int|CommentList $list List
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setList($list) : void
-    {
-        $this->list = $list;
-    }
-
-    /**
-     * Get the list this comment belongs to
-     *
-     * @return int|CommentList
-     *
-     * @since 1.0.0
-     */
-    public function getList()
-    {
-        return $this->list;
-    }
 
     /**
      * {@inheritdoc}
      */
     public function jsonSerialize() : array
     {
-        return [];
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'content' => $this->content,
+            'list' => $this->list,
+            'ref' => $this->ref,
+            'status' => $this->status,
+            'createdAt' => $this->createdAt,
+            'createdBy' => $this->createdBy,
+        ];
     }
 
     /**
