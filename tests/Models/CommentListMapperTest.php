@@ -22,7 +22,7 @@ use Modules\Comments\Models\CommentListMapper;
 /**
  * @internal
  */
-class CommentListMapperTest extends \PHPUnit\Framework\TestCase
+final class CommentListMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers Modules\Comments\Models\CommentListMapper

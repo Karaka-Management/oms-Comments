@@ -23,7 +23,7 @@ use Modules\Comments\Models\NullComment;
 /**
  * @internal
  */
-class CommentTest extends \PHPUnit\Framework\TestCase
+final class CommentTest extends \PHPUnit\Framework\TestCase
 {
     private Comment $comment;
 

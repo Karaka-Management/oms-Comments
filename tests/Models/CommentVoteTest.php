@@ -19,7 +19,7 @@ use Modules\Comments\Models\CommentVote;
 /**
  * @internal
  */
-class CommentVoteTest extends \PHPUnit\Framework\TestCase
+final class CommentVoteTest extends \PHPUnit\Framework\TestCase
 {
     private CommentVote $vote;
 

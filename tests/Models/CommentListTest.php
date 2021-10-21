@@ -20,7 +20,7 @@ use Modules\Comments\Models\CommentList;
 /**
  * @internal
  */
-class CommentListTest extends \PHPUnit\Framework\TestCase
+final class CommentListTest extends \PHPUnit\Framework\TestCase
 {
     private CommentList $list;
 
