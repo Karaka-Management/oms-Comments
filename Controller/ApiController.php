@@ -59,6 +59,7 @@ final class ApiController extends Controller
     {
         $commentList = $this->createCommentList();
         $this->createModel($request->header->account, $commentList, CommentListMapper::class, 'comment_list', $request->getOrigin());
+        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment List', 'Comment list successfully created', $commentList);
     }
 
     /**
@@ -108,9 +109,9 @@ final class ApiController extends Controller
     private function updateCommentListFromRequest(RequestAbstract $request) : CommentList
     {
         $list              = CommentListMapper::get((int) $request->getData('id'));
-        $list->allowEdit   = (bool) ($request->getData('allow_edit') ?? false);
-        $list->allowVoting = (bool) ($request->getData('allow_voting') ?? false);
-        $list->allowFiles  = (bool) ($request->getData('allow_upload') ?? false);
+        $list->allowEdit   = (bool) ($request->getData('allow_edit') ?? $list->allowEdit);
+        $list->allowVoting = (bool) ($request->getData('allow_voting') ?? $list->allowVoting);
+        $list->allowFiles  = (bool) ($request->getData('allow_upload') ?? $list->allowFiles);
         $list->status      = (int) ($request->getData('commentlist_status') ?? $list->status);
 
         return $list;
@@ -132,7 +133,7 @@ final class ApiController extends Controller
     public function apiCommentCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         if (!empty($val = $this->validateCommentCreate($request))) {
-            $response->set('news_create', new FormValidation($val));
+            $response->set('comment_create', new FormValidation($val));
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -180,8 +181,8 @@ final class ApiController extends Controller
         $comment->title      = (string) ($request->getData('title') ?? '');
         $comment->contentRaw = (string) ($request->getData('plain') ?? '');
         $comment->content    = Markdown::parse((string) ($request->getData('plain') ?? ''));
-        $comment->setRef($request->getData('ref') !== null ? (int) $request->getData('ref') : null);
-        $comment->setList((int) ($request->getData('list') ?? 0));
+        $comment->ref = $request->getData('ref') !== null ? (int) $request->getData('ref') : null;
+        $comment->list = (int) ($request->getData('list') ?? 0);
 
         if (!empty($uploadedFiles = $request->getFiles() ?? [])) {
             $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
@@ -239,10 +240,10 @@ final class ApiController extends Controller
     private function updateCommentFromRequest(RequestAbstract $request) : Comment
     {
         $comment = CommentMapper::get((int) $request->getData('id'));
-        $comment->setTitle($request->getData('title') ?? $comment->getTitle());
-        $comment->setContentRaw($request->getData('plain') ?? $comment->getContentRaw());
-        $comment->setContent(Markdown::parse((string) ($request->getData('plain') ?? $comment->getPlain())));
-        $comment->setRef($request->getData('ref') ?? $comment->getRef());
+        $comment->title = $request->getData('title') ?? $comment->getTitle();
+        $comment->contentRaw = $request->getData('plain') ?? $comment->getContentRaw();
+        $comment->content = Markdown::parse((string) ($request->getData('plain') ?? $comment->getPlain()));
+        $comment->ref = $request->getData('ref') ?? $comment->ref;
 
         return $comment;
     }
@@ -299,7 +300,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    private function apiChangeCommentVote(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiChangeCommentVote(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         if (!empty($val = $this->validateCommentVote($request))) {
             $response->set('qa_answer_vote', new FormValidation($val));
@@ -314,7 +315,7 @@ final class ApiController extends Controller
             $new            = new CommentVote();
             $new->score     = (int) $request->getData('type');
             $new->comment   = (int) $request->getData('id');
-            $new->createdBy = new NullAccount($request->header->account);
+            $new->createdBy = $request->header->account;
 
             $this->createModel($request->header->account, $new, CommentVoteMapper::class, 'comment_vote', $request->getOrigin());
             $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);
@@ -339,8 +340,8 @@ final class ApiController extends Controller
     private function validateCommentVote(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['id'] = ($request->getData('id') === null))
-            || ($val['type'] = ($request->getData('type', 'int') < -1 || $request->getData('type') > 1))
+        if (($val['id'] = empty($request->getData('id')))
+            || ($val['type'] = ($request->getData('type', 'int') < -1 || $request->getData('type', 'int') > 1))
         ) {
             return $val;
         }

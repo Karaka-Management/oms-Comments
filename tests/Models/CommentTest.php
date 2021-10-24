@@ -127,7 +127,7 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\CMS\Models\PageL11n
+     * @covers Modules\Comments\Models\Comment
      * @group module
      */
     public function testSerialize() : void

@@ -28,7 +28,7 @@ use Modules\Comments\Models\CommentVoteMapper;
 final class CommentVoteMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\Comments\Models\CommentVote
+     * @covers Modules\Comments\Models\CommentVoteMapper
      * @group module
      */
     public function testCR() : void

@@ -83,6 +83,6 @@ final class CommentVoteMapper extends DataMapperAbstract
 
         $results = self::getAllByQuery($query);
 
-        return \reset($results);
+        return empty($results) ? new NullCommentVote() : \reset($results);
     }
 }
