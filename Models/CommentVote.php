@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Modules\Comments\Models;
 
 use Modules\Admin\Models\Account;
-use Modules\Admin\Models\NullAccount;
 
 /**
  * Comment vote class.

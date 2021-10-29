@@ -16,22 +16,22 @@ namespace Modules\Comments\tests\Controller;
 
 use Model\CoreSettings;
 use Modules\Admin\Models\AccountPermission;
-use phpOMS\DataStorage\Session\HttpSession;
 use phpOMS\Account\Account;
 use phpOMS\Account\AccountManager;
 use phpOMS\Account\PermissionType;
 use phpOMS\Application\ApplicationAbstract;
+use phpOMS\DataStorage\Session\HttpSession;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Event\EventManager;
-use phpOMS\Module\ModuleAbstract;
-use phpOMS\Module\ModuleManager;
-use phpOMS\Router\WebRouter;
-use phpOMS\Utils\TestUtils;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
-use phpOMS\Uri\HttpUri;
+use phpOMS\Module\ModuleAbstract;
+use phpOMS\Module\ModuleManager;
+use phpOMS\Router\WebRouter;
 use phpOMS\System\MimeType;
+use phpOMS\Uri\HttpUri;
+use phpOMS\Utils\TestUtils;
 
 /**
  * @testdox Modules\Comments\tests\Controller\ApiControllerTest: Comments api controller

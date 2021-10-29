@@ -15,10 +15,10 @@ declare(strict_types=1);
 namespace Modules\Comments\tests\Models;
 
 use Modules\Admin\Models\NullAccount;
-use Modules\Media\Models\Media;
 use Modules\Comments\Models\Comment;
 use Modules\Comments\Models\CommentStatus;
 use Modules\Comments\Models\NullComment;
+use Modules\Media\Models\Media;
 
 /**
  * @internal
@@ -132,10 +132,10 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
      */
     public function testSerialize() : void
     {
-        $this->comment->title = 'Title';
-        $this->comment->content = 'Content';
-        $this->comment->list   = 2;
-        $this->comment->ref   = 1;
+        $this->comment->title     = 'Title';
+        $this->comment->content   = 'Content';
+        $this->comment->list      = 2;
+        $this->comment->ref       = 1;
         $this->comment->createdBy = new NullAccount(2);
 
         $serialized = $this->comment->jsonSerialize();
@@ -144,12 +144,12 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [
-                'id'       => 0,
-                'title'    => 'Title',
+                'id'           => 0,
+                'title'        => 'Title',
                 'content'      => 'Content',
-                'list'      => 2,
-                'ref'      => 1,
-                'status' => CommentStatus::VISIBLE,
+                'list'         => 2,
+                'ref'          => 1,
+                'status'       => CommentStatus::VISIBLE,
             ],
             $serialized
         );

@@ -157,19 +157,18 @@ class Comment
         return $this->status;
     }
 
-
     /**
      * {@inheritdoc}
      */
     public function jsonSerialize() : array
     {
         return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'content' => $this->content,
-            'list' => $this->list,
-            'ref' => $this->ref,
-            'status' => $this->status,
+            'id'        => $this->id,
+            'title'     => $this->title,
+            'content'   => $this->content,
+            'list'      => $this->list,
+            'ref'       => $this->ref,
+            'status'    => $this->status,
             'createdAt' => $this->createdAt,
             'createdBy' => $this->createdBy,
         ];

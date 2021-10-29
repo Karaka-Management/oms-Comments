@@ -15,9 +15,9 @@ declare(strict_types=1);
 namespace Modules\Comments\tests\Models;
 
 use Modules\Admin\Models\NullAccount;
+use Modules\Comments\Models\Comment;
 use Modules\Comments\Models\CommentList;
 use Modules\Comments\Models\CommentListMapper;
-use Modules\Comments\Models\Comment;
 use Modules\Comments\Models\CommentMapper;
 use Modules\Comments\Models\CommentVote;
 use Modules\Comments\Models\CommentVoteMapper;
@@ -34,18 +34,18 @@ final class CommentVoteMapperTest extends \PHPUnit\Framework\TestCase
     public function testCR() : void
     {
         $list = new CommentList();
-        $lId = CommentListMapper::create($list);
+        $lId  = CommentListMapper::create($list);
 
-        $comment = new Comment();
-        $comment->title = 'TestComment';
+        $comment            = new Comment();
+        $comment->title     = 'TestComment';
         $comment->createdBy = new NullAccount(1);
-        $comment->list = $lId;
+        $comment->list      = $lId;
 
         $cId = CommentMapper::create($comment);
 
-        $vote = new CommentVote();
-        $vote->comment = $cId;
-        $vote->score = 1;
+        $vote            = new CommentVote();
+        $vote->comment   = $cId;
+        $vote->score     = 1;
         $vote->createdBy = 1;
 
         CommentVoteMapper::create($vote);

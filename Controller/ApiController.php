@@ -181,12 +181,13 @@ final class ApiController extends Controller
         $comment->title      = (string) ($request->getData('title') ?? '');
         $comment->contentRaw = (string) ($request->getData('plain') ?? '');
         $comment->content    = Markdown::parse((string) ($request->getData('plain') ?? ''));
-        $comment->ref = $request->getData('ref') !== null ? (int) $request->getData('ref') : null;
-        $comment->list = (int) ($request->getData('list') ?? 0);
+        $comment->ref        = $request->getData('ref') !== null ? (int) $request->getData('ref') : null;
+        $comment->list       = (int) ($request->getData('list') ?? 0);
 
         if (!empty($uploadedFiles = $request->getFiles() ?? [])) {
             $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
-                [''],
+                [],
+                [],
                 $uploadedFiles,
                 $request->header->account,
                 __DIR__ . '/../../../Modules/Media/Files/Modules/Comments',
@@ -239,11 +240,11 @@ final class ApiController extends Controller
      */
     private function updateCommentFromRequest(RequestAbstract $request) : Comment
     {
-        $comment = CommentMapper::get((int) $request->getData('id'));
-        $comment->title = $request->getData('title') ?? $comment->getTitle();
+        $comment             = CommentMapper::get((int) $request->getData('id'));
+        $comment->title      = $request->getData('title') ?? $comment->getTitle();
         $comment->contentRaw = $request->getData('plain') ?? $comment->getContentRaw();
-        $comment->content = Markdown::parse((string) ($request->getData('plain') ?? $comment->getPlain()));
-        $comment->ref = $request->getData('ref') ?? $comment->ref;
+        $comment->content    = Markdown::parse((string) ($request->getData('plain') ?? $comment->getPlain()));
+        $comment->ref        = $request->getData('ref') ?? $comment->ref;
 
         return $comment;
     }

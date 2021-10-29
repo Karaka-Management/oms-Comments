@@ -34,8 +34,8 @@ final class CommentMapperTest extends \PHPUnit\Framework\TestCase
         $comment->createdBy = new NullAccount(1);
         $comment->title     = 'Test Title';
         $comment->content   = 'Test Content';
-        $comment->ref = null;
-        $comment->list = new CommentList();
+        $comment->ref       = null;
+        $comment->list      = new CommentList();
 
         $id = CommentMapper::create($comment);
         self::assertGreaterThan(0, $comment->getId());
