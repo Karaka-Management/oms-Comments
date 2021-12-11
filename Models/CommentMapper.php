@@ -16,7 +16,7 @@ namespace Modules\Comments\Models;
 
 use Modules\Admin\Models\AccountMapper;
 use Modules\Media\Models\MediaMapper;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Mapper class.
@@ -26,7 +26,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class CommentMapper extends DataMapperAbstract
+final class CommentMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -34,7 +34,7 @@ final class CommentMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'comments_comment_id'          => ['name' => 'comments_comment_id',          'type' => 'int',      'internal' => 'id'],
         'comments_comment_title'       => ['name' => 'comments_comment_title',       'type' => 'string',   'internal' => 'title'],
         'comments_comment_status'      => ['name' => 'comments_comment_status',      'type' => 'int',      'internal' => 'status'],
@@ -52,7 +52,7 @@ final class CommentMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, external:string}>
      * @since 1.0.0
      */
-    protected static array $belongsTo = [
+    public const BELONGS_TO = [
         'createdBy' => [
             'mapper'     => AccountMapper::class,
             'external'   => 'comments_comment_created_by',
@@ -69,7 +69,7 @@ final class CommentMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, table:string, self?:?string, external?:?string, column?:string}>
      * @since 1.0.0
      */
-    protected static array $hasMany = [
+    public const HAS_MANY = [
         'media'        => [
             'mapper'   => MediaMapper::class,
             'table'    => 'comments_comment_media',
@@ -84,7 +84,7 @@ final class CommentMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'comments_comment';
+    public const TABLE = 'comments_comment';
 
     /**
      * Created at.
@@ -92,7 +92,7 @@ final class CommentMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $createdAt = 'comments_comment_created_at';
+    public const CREATED_AT = 'comments_comment_created_at';
 
     /**
      * Primary field name.
@@ -100,5 +100,5 @@ final class CommentMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'comments_comment_id';
+    public const PRIMARYFIELD ='comments_comment_id';
 }

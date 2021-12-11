@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\Comments\Models;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Mapper class.
@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class CommentVoteMapper extends DataMapperAbstract
+final class CommentVoteMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -32,7 +32,7 @@ final class CommentVoteMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'comments_comment_vote_id'          => ['name' => 'comments_comment_vote_id',          'type' => 'int',      'internal' => 'id'],
         'comments_comment_vote_score'       => ['name' => 'comments_comment_vote_score',  'type' => 'int',      'internal' => 'score'],
         'comments_comment_vote_comment'     => ['name' => 'comments_comment_vote_comment',  'type' => 'int',      'internal' => 'comment', 'readonly' => true],
@@ -46,7 +46,7 @@ final class CommentVoteMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'comments_comment_vote';
+    public const TABLE = 'comments_comment_vote';
 
     /**
      * Created at.
@@ -54,7 +54,7 @@ final class CommentVoteMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $createdAt = 'comments_comment_vote_created_at';
+    public const CREATED_AT = 'comments_comment_vote_created_at';
 
     /**
      * Primary field name.
@@ -62,7 +62,7 @@ final class CommentVoteMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'comments_comment_vote_id';
+    public const PRIMARYFIELD ='comments_comment_vote_id';
 
     /**
      * Find vote for comment from user
@@ -76,12 +76,7 @@ final class CommentVoteMapper extends DataMapperAbstract
      */
     public static function findVote(int $comment, int $account) : CommentVote
     {
-        $depth = 3;
-        $query = self::getQuery();
-        $query->where(self::$table . '_d' . $depth . '.comments_comment_vote_created_by', '=', $account)
-            ->andWhere(self::$table . '_d' . $depth . '.comments_comment_vote_comment', '=', $comment);
-
-        $results = self::getAllByQuery($query);
+        $results = self::getAll()->where('comment', $comment)->where('createdBy', $account)->execute();
 
         return empty($results) ? new NullCommentVote() : \reset($results);
     }

@@ -142,7 +142,7 @@ final class BackendController extends Controller
 
         $comment = new Comment();
 
-        CommentMapper::create($comment);
+        CommentMapper::create()->execute($comment);
 
         $response->set('comment', $comment->jsonSerialize());
     }

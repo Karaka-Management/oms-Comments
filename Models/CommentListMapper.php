@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\Comments\Models;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Mapper class.
@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class CommentListMapper extends DataMapperAbstract
+final class CommentListMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -32,7 +32,7 @@ final class CommentListMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'comments_list_id'             => ['name' => 'comments_list_id', 'type' => 'int', 'internal' => 'id'],
         'comments_list_status'         => ['name' => 'comments_list_status', 'type' => 'int', 'internal' => 'status'],
         'comments_list_allow_voting'   => ['name' => 'comments_list_allow_voting', 'type' => 'bool', 'internal' => 'allowVoting'],
@@ -46,7 +46,7 @@ final class CommentListMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, table:string, self?:?string, external?:?string, column?:string}>
      * @since 1.0.0
      */
-    protected static array $hasMany = [
+    public const HAS_MANY = [
         'comments' => [
             'mapper'       => CommentMapper::class,
             'table'        => 'comments_comment',
@@ -61,7 +61,7 @@ final class CommentListMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'comments_list';
+    public const TABLE = 'comments_list';
 
     /**
      * Primary field name.
@@ -69,5 +69,5 @@ final class CommentListMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'comments_list_id';
+    public const PRIMARYFIELD ='comments_list_id';
 }

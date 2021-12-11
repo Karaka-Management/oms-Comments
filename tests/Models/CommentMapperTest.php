@@ -37,11 +37,11 @@ final class CommentMapperTest extends \PHPUnit\Framework\TestCase
         $comment->ref       = null;
         $comment->list      = new CommentList();
 
-        $id = CommentMapper::create($comment);
+        $id = CommentMapper::create()->execute($comment);
         self::assertGreaterThan(0, $comment->getId());
         self::assertEquals($id, $comment->getId());
 
-        $commentR = CommentMapper::get($comment->getId());
+        $commentR = CommentMapper::get()->where('id', $comment->getId())->execute();
         self::assertEquals($id, $commentR->getId());
         self::assertEquals($comment->createdBy->getId(), $commentR->createdBy->getId());
         self::assertEquals($comment->title, $commentR->title);

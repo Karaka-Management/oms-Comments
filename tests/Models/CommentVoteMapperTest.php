@@ -34,21 +34,21 @@ final class CommentVoteMapperTest extends \PHPUnit\Framework\TestCase
     public function testCR() : void
     {
         $list = new CommentList();
-        $lId  = CommentListMapper::create($list);
+        $lId  = CommentListMapper::create()->execute($list);
 
         $comment            = new Comment();
         $comment->title     = 'TestComment';
         $comment->createdBy = new NullAccount(1);
         $comment->list      = $lId;
 
-        $cId = CommentMapper::create($comment);
+        $cId = CommentMapper::create()->execute($comment);
 
         $vote            = new CommentVote();
         $vote->comment   = $cId;
         $vote->score     = 1;
         $vote->createdBy = 1;
 
-        CommentVoteMapper::create($vote);
+        CommentVoteMapper::create()->execute($vote);
 
         $voteR = CommentvoteMapper::findVote($cId, 1);
         self::assertEquals($vote->comment, $voteR->comment);

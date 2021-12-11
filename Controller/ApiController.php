@@ -91,7 +91,7 @@ final class ApiController extends Controller
      */
     public function apiCommentListUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
-        $old = clone CommentListMapper::get((int) $request->getData('id'));
+        $old = clone CommentListMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updateCommentListFromRequest($request);
         $this->updateModel($request->header->account, $old, $new, CommentListMapper::class, 'comment_list', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment List', 'Comment list successfully updated', $new);
@@ -108,7 +108,7 @@ final class ApiController extends Controller
      */
     private function updateCommentListFromRequest(RequestAbstract $request) : CommentList
     {
-        $list              = CommentListMapper::get((int) $request->getData('id'));
+        $list              = CommentListMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $list->allowEdit   = (bool) ($request->getData('allow_edit') ?? $list->allowEdit);
         $list->allowVoting = (bool) ($request->getData('allow_voting') ?? $list->allowVoting);
         $list->allowFiles  = (bool) ($request->getData('allow_upload') ?? $list->allowFiles);
@@ -223,7 +223,7 @@ final class ApiController extends Controller
      */
     public function apiCommentUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
-        $old = clone CommentMapper::get((int) $request->getData('id'));
+        $old = clone CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updateCommentFromRequest($request);
         $this->updateModel($request->header->account, $old, $new, CommentMapper::class, 'comment', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment', 'Comment successfully updated', $new);
@@ -240,7 +240,7 @@ final class ApiController extends Controller
      */
     private function updateCommentFromRequest(RequestAbstract $request) : Comment
     {
-        $comment             = CommentMapper::get((int) $request->getData('id'));
+        $comment             = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $comment->title      = $request->getData('title') ?? $comment->getTitle();
         $comment->contentRaw = $request->getData('plain') ?? $comment->getContentRaw();
         $comment->content    = Markdown::parse((string) ($request->getData('plain') ?? $comment->getPlain()));
@@ -264,7 +264,7 @@ final class ApiController extends Controller
      */
     public function apiCommentGet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
-        $comment = CommentMapper::get((int) $request->getData('id'));
+        $comment = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment', 'Comment successfully returned', $comment);
     }
 
@@ -283,7 +283,7 @@ final class ApiController extends Controller
      */
     public function apiCommentDelete(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
-        $comment = CommentMapper::get((int) $request->getData('id'));
+        $comment = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $comment, CommentMapper::class, 'comment', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment', 'Comment successfully deleted', $comment);
     }
