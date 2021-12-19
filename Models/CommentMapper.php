@@ -35,14 +35,14 @@ final class CommentMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'comments_comment_id'          => ['name' => 'comments_comment_id',          'type' => 'int',      'internal' => 'id'],
-        'comments_comment_title'       => ['name' => 'comments_comment_title',       'type' => 'string',   'internal' => 'title'],
-        'comments_comment_status'      => ['name' => 'comments_comment_status',      'type' => 'int',      'internal' => 'status'],
-        'comments_comment_content'     => ['name' => 'comments_comment_content',     'type' => 'string',   'internal' => 'content'],
-        'comments_comment_content_raw' => ['name' => 'comments_comment_content_raw', 'type' => 'string',   'internal' => 'contentRaw'],
-        'comments_comment_list'        => ['name' => 'comments_comment_list',        'type' => 'int',      'internal' => 'list'],
-        'comments_comment_ref'         => ['name' => 'comments_comment_ref',         'type' => 'int',      'internal' => 'ref'],
-        'comments_comment_created_by'  => ['name' => 'comments_comment_created_by',  'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
+        'comments_comment_id'          => ['name' => 'comments_comment_id',          'type' => 'int',               'internal' => 'id'],
+        'comments_comment_title'       => ['name' => 'comments_comment_title',       'type' => 'string',            'internal' => 'title'],
+        'comments_comment_status'      => ['name' => 'comments_comment_status',      'type' => 'int',               'internal' => 'status'],
+        'comments_comment_content'     => ['name' => 'comments_comment_content',     'type' => 'string',            'internal' => 'content'],
+        'comments_comment_content_raw' => ['name' => 'comments_comment_content_raw', 'type' => 'string',            'internal' => 'contentRaw'],
+        'comments_comment_list'        => ['name' => 'comments_comment_list',        'type' => 'int',               'internal' => 'list'],
+        'comments_comment_ref'         => ['name' => 'comments_comment_ref',         'type' => 'int',               'internal' => 'ref'],
+        'comments_comment_created_by'  => ['name' => 'comments_comment_created_by',  'type' => 'int',               'internal' => 'createdBy', 'readonly' => true],
         'comments_comment_created_at'  => ['name' => 'comments_comment_created_at',  'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
     ];
 
@@ -54,12 +54,12 @@ final class CommentMapper extends DataMapperFactory
      */
     public const BELONGS_TO = [
         'createdBy' => [
-            'mapper'     => AccountMapper::class,
-            'external'   => 'comments_comment_created_by',
+            'mapper'   => AccountMapper::class,
+            'external' => 'comments_comment_created_by',
         ],
         'list' => [
-            'mapper'     => CommentListMapper::class,
-            'external'   => 'comments_comment_list',
+            'mapper'   => CommentListMapper::class,
+            'external' => 'comments_comment_list',
         ],
     ];
 

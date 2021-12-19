@@ -33,11 +33,11 @@ final class CommentListMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'comments_list_id'             => ['name' => 'comments_list_id', 'type' => 'int', 'internal' => 'id'],
-        'comments_list_status'         => ['name' => 'comments_list_status', 'type' => 'int', 'internal' => 'status'],
-        'comments_list_allow_voting'   => ['name' => 'comments_list_allow_voting', 'type' => 'bool', 'internal' => 'allowVoting'],
-        'comments_list_allow_edit'     => ['name' => 'comments_list_allow_edit', 'type' => 'bool', 'internal' => 'allowEdit'],
-        'comments_list_allow_files'    => ['name' => 'comments_list_allow_files', 'type' => 'bool', 'internal' => 'allowFiles'],
+        'comments_list_id'           => ['name' => 'comments_list_id',           'type' => 'int',  'internal' => 'id'],
+        'comments_list_status'       => ['name' => 'comments_list_status',       'type' => 'int',  'internal' => 'status'],
+        'comments_list_allow_voting' => ['name' => 'comments_list_allow_voting', 'type' => 'bool', 'internal' => 'allowVoting'],
+        'comments_list_allow_edit'   => ['name' => 'comments_list_allow_edit',   'type' => 'bool', 'internal' => 'allowEdit'],
+        'comments_list_allow_files'  => ['name' => 'comments_list_allow_files',  'type' => 'bool', 'internal' => 'allowFiles'],
     ];
 
     /**
@@ -48,10 +48,10 @@ final class CommentListMapper extends DataMapperFactory
      */
     public const HAS_MANY = [
         'comments' => [
-            'mapper'       => CommentMapper::class,
-            'table'        => 'comments_comment',
-            'self'         => 'comments_comment_list',
-            'external'     => null,
+            'mapper'   => CommentMapper::class,
+            'table'    => 'comments_comment',
+            'self'     => 'comments_comment_list',
+            'external' => null,
         ],
     ];
 
