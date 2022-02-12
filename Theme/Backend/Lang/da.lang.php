@@ -13,6 +13,12 @@
 declare(strict_types=1);
 
 return ['Comments' => [
-    'Created' => 'lavet',
-    'Creator' => 'Skaberen',
+    'Created'   => 'Oprettet',
+    'Creator'   => 'Skaber.',
+    'Edit'      => 'Redigere',
+    'Upload'    => 'Upload',
+    'Voting'    => 'Afstemning',
+    'lstatus-1' => 'Aktiv',
+    'lstatus-2' => 'Inaktiv.',
+    'lstatus-3' => 'Låst',
 ]];

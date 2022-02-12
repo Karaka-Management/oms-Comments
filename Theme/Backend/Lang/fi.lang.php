@@ -13,6 +13,12 @@
 declare(strict_types=1);
 
 return ['Comments' => [
-    'Created' => 'Luotu',
-    'Creator' => 'Luoja',
+    'Created'   => 'Luotu',
+    'Creator'   => 'Luoja',
+    'Edit'      => 'Muokata',
+    'Upload'    => 'Ladata',
+    'Voting'    => 'Äänestys',
+    'lstatus-1' => 'Aktiivinen',
+    'lstatus-2' => 'Epäaktiivinen',
+    'lstatus-3' => 'Lukittu',
 ]];

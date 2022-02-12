@@ -13,6 +13,12 @@
 declare(strict_types=1);
 
 return ['Comments' => [
-    'Created' => 'düzenlendi',
-    'Creator' => 'yaratıcı',
+    'Created'   => 'Yaratılmış',
+    'Creator'   => 'Yaratıcı',
+    'Edit'      => 'Düzenlemek',
+    'Upload'    => 'Yüklemek',
+    'Voting'    => 'Oylama',
+    'lstatus-1' => 'Aktif',
+    'lstatus-2' => 'Aktif olmayan',
+    'lstatus-3' => 'Kilitli',
 ]];

@@ -13,6 +13,12 @@
 declare(strict_types=1);
 
 return ['Comments' => [
-    'Created' => 'δημιουργήθηκε',
-    'Creator' => 'Δημιουργός',
+    'Created'   => 'Δημιουργήθηκε',
+    'Creator'   => 'Δημιουργός',
+    'Edit'      => 'Επεξεργασία',
+    'Upload'    => 'Μεταφόρτω',
+    'Voting'    => 'Ψηφοφορία',
+    'lstatus-1' => 'Ενεργός',
+    'lstatus-2' => 'Αδρανής',
+    'lstatus-3' => 'Κλειδωμένος',
 ]];

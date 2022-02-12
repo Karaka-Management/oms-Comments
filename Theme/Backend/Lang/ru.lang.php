@@ -13,6 +13,12 @@
 declare(strict_types=1);
 
 return ['Comments' => [
-    'Created' => 'Созданный',
-    'Creator' => 'творец',
+    'Created'   => 'Созданный',
+    'Creator'   => 'Создатель',
+    'Edit'      => 'Редактировать',
+    'Upload'    => 'Загрузить',
+    'Voting'    => 'Голосование',
+    'lstatus-1' => 'Активный',
+    'lstatus-2' => 'Неактивный',
+    'lstatus-3' => 'Заблокирован',
 ]];

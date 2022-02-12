@@ -13,6 +13,12 @@
 declare(strict_types=1);
 
 return ['Comments' => [
-    'Created' => 'Créé',
-    'Creator' => 'Créateur',
+    'Created'   => 'Établi',
+    'Creator'   => 'Créateur',
+    'Edit'      => 'Éditer',
+    'Upload'    => 'Télécharger',
+    'Voting'    => 'Vote',
+    'lstatus-1' => 'actif',
+    'lstatus-2' => 'Inactif',
+    'lstatus-3' => 'Fermé à clé',
 ]];

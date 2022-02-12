@@ -13,6 +13,12 @@
 declare(strict_types=1);
 
 return ['Comments' => [
-    'Created' => 'Vytvořeno',
-    'Creator' => 'Tvůrce',
+    'Created'   => 'Vytvořený',
+    'Creator'   => 'Tvůrce',
+    'Edit'      => 'Upravit',
+    'Upload'    => 'nahrát',
+    'Voting'    => 'Hlasování',
+    'lstatus-1' => 'Aktivní',
+    'lstatus-2' => 'Neaktivní',
+    'lstatus-3' => 'Zamčený',
 ]];

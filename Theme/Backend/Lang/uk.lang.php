@@ -13,6 +13,12 @@
 declare(strict_types=1);
 
 return ['Comments' => [
-    'Created' => 'створений',
-    'Creator' => 'творець',
+    'Created'   => 'Створений',
+    'Creator'   => 'Творець',
+    'Edit'      => 'Редагувати',
+    'Upload'    => 'Завантажувати',
+    'Voting'    => 'Голосування',
+    'lstatus-1' => 'Активний',
+    'lstatus-2' => 'Неактивний',
+    'lstatus-3' => 'Замкнений',
 ]];
