@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Modules\Comments\Controller;
 
+use Modules\Admin\Models\AccountMapper;
 use Modules\Admin\Models\NullAccount;
 use Modules\Comments\Models\Comment;
 use Modules\Comments\Models\CommentList;
@@ -24,7 +25,11 @@ use Modules\Comments\Models\CommentMapper;
 use Modules\Comments\Models\CommentVote;
 use Modules\Comments\Models\CommentVoteMapper;
 use Modules\Comments\Models\NullCommentVote;
+use Modules\Media\Models\CollectionMapper;
+use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\NullMedia;
+use Modules\Media\Models\Reference;
+use Modules\Media\Models\ReferenceMapper;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
@@ -141,7 +146,91 @@ final class ApiController extends Controller
 
         $comment = $this->createCommentFromRequest($request);
         $this->createModel($request->header->account, $comment, CommentMapper::class, 'comment', $request->getOrigin());
+
+        if (!empty($request->getFiles() ?? [])
+            || !empty($request->getDataJson('media') ?? [])
+        ) {
+            $this->createCommentMedia($comment, $request);
+        }
+
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment', 'Comment successfully created', $comment);
+    }
+
+    private function createCommentMedia(Comment $comment, RequestAbstract $request) : void
+    {
+        $path = $this->createCommentDir($comment);
+        $account = AccountMapper::get()->where('id', $request->header->account)->execute();
+
+        if (!empty($uploadedFiles = $request->getFiles() ?? [])) {
+            $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
+                [],
+                [],
+                $uploadedFiles,
+                $request->header->account,
+                __DIR__ . '/../../../Modules/Media/Files' . $path,
+                $path,
+            );
+
+            $collection = null;
+
+            foreach ($uploaded as $media) {
+                MediaMapper::create()->execute($media);
+                CommentMapper::writer()->createRelationTable('media', [$media->getId()], $comment->getId());
+
+                $ref = new Reference();
+                $ref->source = new NullMedia($media->getId());
+                $ref->createdBy = new NullAccount($request->header->account);
+                $ref->setVirtualPath($accountPath = '/Accounts/' . $account->getId() . ' ' . $account->login . '/Comments/' . $comment->createdAt->format('Y') . '/' . $comment->createdAt->format('m') . '/' . $comment->getId());
+
+                ReferenceMapper::create()->execute($ref);
+
+                if ($collection === null) {
+                    $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
+                        '/Modules/Media/Files',
+                        $accountPath,
+                        $request->header->account,
+                        __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $account->getId() . '/Comments/' . $comment->createdAt->format('Y') . '/' . $comment->createdAt->format('m') . '/' . $comment->getId()
+                    );
+                }
+
+                CollectionMapper::writer()->createRelationTable('sources', [$ref->getId()], $collection->getId());
+            }
+        }
+
+        if (!empty($mediaFiles = $request->getDataJson('media') ?? [])) {
+            $collection = null;
+
+            foreach ($mediaFiles as $media) {
+                CommentMapper::writer()->createRelationTable('media', [(int) $media], $comment->getId());
+
+                $ref = new Reference();
+                $ref->source = new NullMedia((int) $media);
+                $ref->createdBy = new NullAccount($request->header->account);
+                $ref->setVirtualPath($path);
+
+                ReferenceMapper::create()->execute($ref);
+
+                if ($collection === null) {
+                    $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
+                        '/Modules/Media/Files',
+                        $path,
+                        $request->header->account,
+                        __DIR__ . '/../../../Modules/Media/Files' . $path
+                    );
+                }
+
+                CollectionMapper::writer()->createRelationTable('sources', [$ref->getId()], $collection->getId());
+            }
+        }
+    }
+
+    private function createCommentDir(Comment $comment) : string
+    {
+        return '/Modules/Comments/'
+            . $comment->createdAt->format('Y') . '/'
+            . $comment->createdAt->format('m') . '/'
+            . $comment->createdAt->format('d') . '/'
+            . $comment->getId();
     }
 
     /**
@@ -183,27 +272,6 @@ final class ApiController extends Controller
         $comment->content    = Markdown::parse((string) ($request->getData('plain') ?? ''));
         $comment->ref        = $request->getData('ref') !== null ? (int) $request->getData('ref') : null;
         $comment->list       = (int) ($request->getData('list') ?? 0);
-
-        if (!empty($uploadedFiles = $request->getFiles() ?? [])) {
-            $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
-                [],
-                [],
-                $uploadedFiles,
-                $request->header->account,
-                __DIR__ . '/../../../Modules/Media/Files/Modules/Comments',
-                '/Modules/Comments',
-            );
-
-            foreach ($uploaded as $media) {
-                $comment->addMedia($media);
-            }
-        }
-
-        if (!empty($mediaFiles = $request->getDataJson('media') ?? [])) {
-            foreach ($mediaFiles as $media) {
-                $comment->addMedia(new NullMedia($media));
-            }
-        }
 
         return $comment;
     }
