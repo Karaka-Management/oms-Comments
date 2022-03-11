@@ -76,9 +76,7 @@ foreach ($comments as $comment) : ?>
                          <span><a class="content" href="<?= UriFactory::build('{/prefix}media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
                     <?php endforeach; ?>
 
-                    <?= $this->printHtml(
-                        \sprintf('%3$s %2$s %1$s', $comment->createdBy->name1, $comment->createdBy->name2, $comment->createdBy->name3)
-                    ); ?>
+                    <?= $this->printHtml($this->renderUserName('%3$s %2$s %1$s', [$comment->createdBy->name1, $comment->createdBy->name2, $comment->createdBy->name3, $comment->createdBy->login ?? ''])); ?>
                     <span class="floatRight"><?= $comment->createdAt->format('Y-m-d H:i:s'); ?></span>
                 </div>
             </section>
