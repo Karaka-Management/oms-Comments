@@ -13,7 +13,7 @@
 declare(strict_types=1);
 
 use Modules\Comments\Controller\ApiController;
-use Modules\Comments\Models\PermissionState;
+use Modules\Comments\Models\PermissionCategory;
 use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
@@ -25,7 +25,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::COMMENT,
+                'state'  => PermissionCategory::COMMENT,
             ],
         ],
         [
@@ -34,7 +34,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::COMMENT,
+                'state'  => PermissionCategory::COMMENT,
             ],
         ],
     ],
@@ -45,7 +45,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::LIST,
+                'state'  => PermissionCategory::LIST,
             ],
         ],
     ],
@@ -56,7 +56,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::VOTE,
+                'state'  => PermissionCategory::VOTE,
             ],
         ],
     ],
