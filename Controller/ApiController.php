@@ -178,6 +178,7 @@ final class ApiController extends Controller
                 CommentMapper::writer()->createRelationTable('media', [$media->getId()], $comment->getId());
 
                 $ref = new Reference();
+                $ref->name = $media->name;
                 $ref->source = new NullMedia($media->getId());
                 $ref->createdBy = new NullAccount($request->header->account);
                 $ref->setVirtualPath($accountPath = '/Accounts/' . $account->getId() . ' ' . $account->login . '/Comments/' . $comment->createdAt->format('Y') . '/' . $comment->createdAt->format('m') . '/' . $comment->getId());
@@ -200,11 +201,13 @@ final class ApiController extends Controller
         if (!empty($mediaFiles = $request->getDataJson('media') ?? [])) {
             $collection = null;
 
-            foreach ($mediaFiles as $media) {
-                CommentMapper::writer()->createRelationTable('media', [(int) $media], $comment->getId());
+            foreach ($mediaFiles as $file) {
+                $media = MediaMapper::get()->where('id', (int) $file)->limit(1)->execute();
+                CommentMapper::writer()->createRelationTable('media', [$media->getId()], $comment->getId());
 
                 $ref = new Reference();
-                $ref->source = new NullMedia((int) $media);
+                $ref->name = $media->name;
+                $ref->source = new NullMedia($media->getId());
                 $ref->createdBy = new NullAccount($request->header->account);
                 $ref->setVirtualPath($path);
 
