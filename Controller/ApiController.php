@@ -3,7 +3,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   Modules\Comments
  * @copyright Dennis Eichhorn
@@ -96,6 +96,7 @@ final class ApiController extends Controller
      */
     public function apiCommentListUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
+        /** @var \Modules\Comments\Models\CommentList $old */
         $old = clone CommentListMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updateCommentListFromRequest($request);
         $this->updateModel($request->header->account, $old, $new, CommentListMapper::class, 'comment_list', $request->getOrigin());
@@ -113,6 +114,7 @@ final class ApiController extends Controller
      */
     private function updateCommentListFromRequest(RequestAbstract $request) : CommentList
     {
+        /** @var \Modules\Comments\Models\CommentList $list */
         $list              = CommentListMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $list->allowEdit   = (bool) ($request->getData('allow_edit') ?? $list->allowEdit);
         $list->allowVoting = (bool) ($request->getData('allow_voting') ?? $list->allowVoting);
@@ -168,7 +170,9 @@ final class ApiController extends Controller
      */
     private function createCommentMedia(Comment $comment, RequestAbstract $request) : void
     {
-        $path    = $this->createCommentDir($comment);
+        $path = $this->createCommentDir($comment);
+
+        /** @var \Modules\Admin\Models\Account $account */
         $account = AccountMapper::get()->where('id', $request->header->account)->execute();
 
         if (!empty($uploadedFiles = $request->getFiles())) {
@@ -213,6 +217,7 @@ final class ApiController extends Controller
             $collection = null;
 
             foreach ($mediaFiles as $file) {
+                /** @var \Modules\Media\Models\Media $media */
                 $media = MediaMapper::get()->where('id', (int) $file)->limit(1)->execute();
                 CommentMapper::writer()->createRelationTable('media', [$media->getId()], $comment->getId());
 
@@ -313,6 +318,7 @@ final class ApiController extends Controller
      */
     public function apiCommentUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
+        /** @var \Modules\Comments\Models\Comment $old */
         $old = clone CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updateCommentFromRequest($request);
         $this->updateModel($request->header->account, $old, $new, CommentMapper::class, 'comment', $request->getOrigin());
@@ -330,6 +336,7 @@ final class ApiController extends Controller
      */
     private function updateCommentFromRequest(RequestAbstract $request) : Comment
     {
+        /** @var \Modules\Comments\Models\Comment $comment */
         $comment             = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $comment->title      = $request->getData('title') ?? $comment->getTitle();
         $comment->contentRaw = $request->getData('plain') ?? $comment->getContentRaw();
@@ -354,6 +361,7 @@ final class ApiController extends Controller
      */
     public function apiCommentGet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
+        /** @var \Modules\Comments\Models\Comment $comment */
         $comment = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment', 'Comment successfully returned', $comment);
     }
@@ -373,6 +381,7 @@ final class ApiController extends Controller
      */
     public function apiCommentDelete(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
+        /** @var \Modules\Comments\Models\Comment $comment */
         $comment = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $comment, CommentMapper::class, 'comment', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment', 'Comment successfully deleted', $comment);
@@ -400,6 +409,7 @@ final class ApiController extends Controller
             return;
         }
 
+        /** @var \Modules\Comments\Models\CommentVote $vote */
         $vote = CommentVoteMapper::findVote((int) $request->getData('id'), $request->header->account);
 
         if ($vote instanceof NullCommentVote) {
