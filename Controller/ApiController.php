@@ -60,7 +60,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentListCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiCommentListCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         $commentList = $this->createCommentList();
         $this->createModel($request->header->account, $commentList, CommentListMapper::class, 'comment_list', $request->getOrigin());
@@ -94,7 +94,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentListUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiCommentListUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var \Modules\Comments\Models\CommentList $old */
         $old = clone CommentListMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -137,7 +137,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiCommentCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateCommentCreate($request))) {
             $response->set('comment_create', new FormValidation($val));
@@ -316,7 +316,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiCommentUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var \Modules\Comments\Models\Comment $old */
         $old = clone CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -338,9 +338,9 @@ final class ApiController extends Controller
     {
         /** @var \Modules\Comments\Models\Comment $comment */
         $comment             = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $comment->title      = $request->getData('title') ?? $comment->getTitle();
-        $comment->contentRaw = $request->getData('plain') ?? $comment->getContentRaw();
-        $comment->content    = Markdown::parse((string) ($request->getData('plain') ?? $comment->getPlain()));
+        $comment->title      = $request->getData('title') ?? $comment->title;
+        $comment->contentRaw = $request->getData('plain') ?? $comment->contentRaw;
+        $comment->content    = Markdown::parse((string) ($request->getData('plain') ?? $comment->contentRaw));
         $comment->ref        = $request->getData('ref') ?? $comment->ref;
 
         return $comment;
@@ -359,7 +359,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentGet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiCommentGet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var \Modules\Comments\Models\Comment $comment */
         $comment = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -379,7 +379,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentDelete(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiCommentDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var \Modules\Comments\Models\Comment $comment */
         $comment = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -400,7 +400,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiChangeCommentVote(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiChangeCommentVote(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateCommentVote($request))) {
             $response->set('qa_answer_vote', new FormValidation($val));
