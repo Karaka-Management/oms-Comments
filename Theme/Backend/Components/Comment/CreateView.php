@@ -50,7 +50,7 @@ class CreateView extends View
     /**
      * {@inheritdoc}
      */
-    public function render(...$data) : string
+    public function render(mixed ...$data) : string
     {
         $this->list = $data[0];
 
