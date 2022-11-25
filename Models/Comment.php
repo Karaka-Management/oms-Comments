@@ -26,7 +26,7 @@ use Modules\Media\Models\Media;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class Comment
+class Comment implements \JsonSerializable
 {
     /**
      * ID.
@@ -160,7 +160,7 @@ class Comment
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize() : array
+    public function jsonSerialize() : mixed
     {
         return [
             'id'        => $this->id,
