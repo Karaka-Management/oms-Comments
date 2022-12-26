@@ -97,7 +97,8 @@ final class ApiController extends Controller
     public function apiCommentListUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var \Modules\Comments\Models\CommentList $old */
-        $old = clone CommentListMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = CommentListMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = clone $old;
         $new = $this->updateCommentListFromRequest($request);
         $this->updateModel($request->header->account, $old, $new, CommentListMapper::class, 'comment_list', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment List', 'Comment list successfully updated', $new);
@@ -319,7 +320,8 @@ final class ApiController extends Controller
     public function apiCommentUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         /** @var \Modules\Comments\Models\Comment $old */
-        $old = clone CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = clone $old;
         $new = $this->updateCommentFromRequest($request);
         $this->updateModel($request->header->account, $old, $new, CommentMapper::class, 'comment', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment', 'Comment successfully updated', $new);
@@ -338,10 +340,10 @@ final class ApiController extends Controller
     {
         /** @var \Modules\Comments\Models\Comment $comment */
         $comment             = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $comment->title      = $request->getData('title') ?? $comment->title;
-        $comment->contentRaw = $request->getData('plain') ?? $comment->contentRaw;
+        $comment->title      = (string) ($request->getData('title') ?? $comment->title);
+        $comment->contentRaw = (string) ($request->getData('plain') ?? $comment->contentRaw);
         $comment->content    = Markdown::parse((string) ($request->getData('plain') ?? $comment->contentRaw));
-        $comment->ref        = $request->getData('ref') ?? $comment->ref;
+        $comment->ref        = $request->hasData('ref') ? (int) $request->getData('ref') : $comment->ref;
 
         return $comment;
     }

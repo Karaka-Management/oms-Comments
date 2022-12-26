@@ -76,7 +76,11 @@ final class CommentVoteMapper extends DataMapperFactory
      */
     public static function findVote(int $comment, int $account) : CommentVote
     {
-        $results = self::getAll()->where('comment', $comment)->where('createdBy', $account)->execute();
+        /** @var CommentVote[] $results */
+        $results = self::getAll()
+            ->where('comment', $comment)
+            ->where('createdBy', $account)
+            ->execute();
 
         return empty($results) ? new NullCommentVote() : \reset($results);
     }

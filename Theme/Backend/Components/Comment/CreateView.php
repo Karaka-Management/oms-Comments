@@ -36,7 +36,7 @@ class CreateView extends View
      * @var int
      * @since 1.0.0
      */
-    protected $list = 0;
+    protected int $list = 0;
 
     /**
      * {@inheritdoc}
@@ -52,6 +52,7 @@ class CreateView extends View
      */
     public function render(mixed ...$data) : string
     {
+        /** @var array{0:int} $data */
         $this->list = $data[0];
 
         return parent::render();

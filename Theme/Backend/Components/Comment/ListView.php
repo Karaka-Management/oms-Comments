@@ -53,6 +53,7 @@ class ListView extends View
      */
     public function render(mixed ...$data) : string
     {
+        /** @var array{0:null|CommentList} $data */
         $this->commentList = $data[0];
 
         return parent::render();
