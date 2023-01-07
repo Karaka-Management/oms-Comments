@@ -343,7 +343,7 @@ final class ApiController extends Controller
         $comment->title      = (string) ($request->getData('title') ?? $comment->title);
         $comment->contentRaw = (string) ($request->getData('plain') ?? $comment->contentRaw);
         $comment->content    = Markdown::parse((string) ($request->getData('plain') ?? $comment->contentRaw));
-        $comment->ref        = $request->hasData('ref') ? (int) $request->getData('ref') : $comment->ref;
+        $comment->ref        = $request->getData('ref', 'int');
 
         return $comment;
     }
