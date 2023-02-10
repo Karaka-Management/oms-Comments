@@ -189,10 +189,20 @@ final class ApiController extends Controller
             $collection = null;
 
             foreach ($uploaded as $media) {
-                MediaMapper::create()->execute($media);
-                CommentMapper::writer()->createRelationTable('media', [$media->getId()], $comment->getId());
+                $this->createModelRelation(
+                    $request->header->account,
+                    $comment->getId(),
+                    $media->getId(),
+                    CommentMapper::class,
+                    'media',
+                    '',
+                    $request->getOrigin()
+                );
 
-                $accountPath = '/Accounts/' . $account->getId() . ' ' . $account->login . '/Comments/' . $comment->createdAt->format('Y') . '/' . $comment->createdAt->format('m') . '/' . $comment->getId();
+                $accountPath = '/Accounts/' . $account->getId() . ' ' . $account->login
+                    . '/Comments/'
+                    . $comment->createdAt->format('Y') . '/' . $comment->createdAt->format('m')
+                    . '/' . $comment->getId();
 
                 $ref            = new Reference();
                 $ref->name      = $media->name;
@@ -200,7 +210,7 @@ final class ApiController extends Controller
                 $ref->createdBy = new NullAccount($request->header->account);
                 $ref->setVirtualPath($accountPath);
 
-                ReferenceMapper::create()->execute($ref);
+                $this->createModel($request->header->account, $ref, ReferenceMapper::class, 'media_reference', $request->getOrigin());
 
                 if ($collection === null) {
                     $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
@@ -210,7 +220,15 @@ final class ApiController extends Controller
                     );
                 }
 
-                CollectionMapper::writer()->createRelationTable('sources', [$ref->getId()], $collection->getId());
+                $this->createModelRelation(
+                    $request->header->account,
+                    $collection->getId(),
+                    $ref->getId(),
+                    CollectionMapper::class,
+                    'sources',
+                    '',
+                    $request->getOrigin()
+                );
             }
         }
 
@@ -220,7 +238,15 @@ final class ApiController extends Controller
             foreach ($mediaFiles as $file) {
                 /** @var \Modules\Media\Models\Media $media */
                 $media = MediaMapper::get()->where('id', (int) $file)->limit(1)->execute();
-                CommentMapper::writer()->createRelationTable('media', [$media->getId()], $comment->getId());
+                $this->createModelRelation(
+                    $request->header->account,
+                    $comment->getId(),
+                    $media->getId(),
+                    CommentMapper::class,
+                    'media',
+                    '',
+                    $request->getOrigin()
+                );
 
                 $ref            = new Reference();
                 $ref->name      = $media->name;
@@ -228,7 +254,7 @@ final class ApiController extends Controller
                 $ref->createdBy = new NullAccount($request->header->account);
                 $ref->setVirtualPath($path);
 
-                ReferenceMapper::create()->execute($ref);
+                $this->createModel($request->header->account, $ref, ReferenceMapper::class, 'media_reference', $request->getOrigin());
 
                 if ($collection === null) {
                     $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
@@ -238,7 +264,15 @@ final class ApiController extends Controller
                     );
                 }
 
-                CollectionMapper::writer()->createRelationTable('sources', [$ref->getId()], $collection->getId());
+                $this->createModelRelation(
+                    $request->header->account,
+                    $collection->getId(),
+                    $ref->getId(),
+                    CollectionMapper::class,
+                    'sources',
+                    '',
+                    $request->getOrigin()
+                );
             }
         }
     }
