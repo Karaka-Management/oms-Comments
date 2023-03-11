@@ -100,5 +100,5 @@ final class CommentMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD ='comments_comment_id';
+    public const PRIMARYFIELD = 'comments_comment_id';
 }
