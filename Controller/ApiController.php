@@ -7,7 +7,7 @@
  *
  * @package   Modules\Comments
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -41,7 +41,7 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
  * Comments controller class.
  *
  * @package Modules\Comments
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -117,10 +117,10 @@ final class ApiController extends Controller
     {
         /** @var \Modules\Comments\Models\CommentList $list */
         $list              = CommentListMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $list->allowEdit   = (bool) ($request->getData('allow_edit') ?? $list->allowEdit);
-        $list->allowVoting = (bool) ($request->getData('allow_voting') ?? $list->allowVoting);
-        $list->allowFiles  = (bool) ($request->getData('allow_upload') ?? $list->allowFiles);
-        $list->status      = (int) ($request->getData('commentlist_status') ?? $list->status);
+        $list->allowEdit   = $request->getDataBool('allow_edit') ?? $list->allowEdit;
+        $list->allowVoting = $request->getDataBool('allow_voting') ?? $list->allowVoting;
+        $list->allowFiles  = $request->getDataBool('allow_upload') ?? $list->allowFiles;
+        $list->status      = $request->getDataInt('commentlist_status') ?? $list->status;
 
         return $list;
     }
@@ -329,11 +329,11 @@ final class ApiController extends Controller
     {
         $comment             = new Comment();
         $comment->createdBy  = new NullAccount($request->header->account);
-        $comment->title      = (string) ($request->getData('title') ?? '');
-        $comment->contentRaw = (string) ($request->getData('plain') ?? '');
-        $comment->content    = Markdown::parse((string) ($request->getData('plain') ?? ''));
-        $comment->ref        = $request->getData('ref') !== null ? (int) $request->getData('ref') : null;
-        $comment->list       = (int) ($request->getData('list') ?? 0);
+        $comment->title      = $request->getDataString('title') ?? '';
+        $comment->contentRaw = $request->getDataString('plain') ?? '';
+        $comment->content    = Markdown::parse($request->getDataString('plain') ?? '');
+        $comment->ref        = $request->hasData('ref') ? (int) $request->getData('ref') : null;
+        $comment->list       = $request->getDataInt('list') ?? 0;
 
         return $comment;
     }
@@ -374,10 +374,10 @@ final class ApiController extends Controller
     {
         /** @var \Modules\Comments\Models\Comment $comment */
         $comment             = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $comment->title      = (string) ($request->getData('title') ?? $comment->title);
-        $comment->contentRaw = (string) ($request->getData('plain') ?? $comment->contentRaw);
+        $comment->title      = $request->getDataString('title') ?? $comment->title;
+        $comment->contentRaw = $request->getDataString('plain') ?? $comment->contentRaw;
         $comment->content    = Markdown::parse((string) ($request->getData('plain') ?? $comment->contentRaw));
-        $comment->ref        = $request->getData('ref', 'int');
+        $comment->ref        = $request->getDataInt('ref');
 
         return $comment;
     }
@@ -478,7 +478,7 @@ final class ApiController extends Controller
     {
         $val = [];
         if (($val['id'] = empty($request->getData('id')))
-            || ($val['type'] = ($request->getData('type', 'int') < -1 || $request->getData('type', 'int') > 1))
+            || ($val['type'] = ($request->getDataInt('type') < -1 || $request->getDataInt('type') > 1))
         ) {
             return $val;
         }

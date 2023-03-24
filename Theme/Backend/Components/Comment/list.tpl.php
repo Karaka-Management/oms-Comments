@@ -6,7 +6,7 @@
  *
  * @package   Template
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -73,7 +73,7 @@ foreach ($comments as $comment) : ?>
                 </div>
                 <div class="portlet-foot">
                     <?php $files = $comment->getMedia(); foreach ($files as $file) : ?>
-                         <span><a class="content" href="<?= UriFactory::build('{/lang}/{/app}/media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
+                         <span><a class="content" href="<?= UriFactory::build('{/base}/media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
                     <?php endforeach; ?>
 
                     <?= $this->printHtml($this->renderUserName('%3$s %2$s %1$s', [$comment->createdBy->name1, $comment->createdBy->name2, $comment->createdBy->name3, $comment->createdBy->login ?? ''])); ?>
