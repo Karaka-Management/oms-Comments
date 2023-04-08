@@ -109,8 +109,8 @@ final class BackendController extends Controller
     private function validateCommentCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['title'] = empty($request->getData('title')))
-            || ($val['plain'] = empty($request->getData('plain')))
+        if (($val['title'] = !$request->hasData('title'))
+            || ($val['plain'] = !$request->hasData('plain'))
         ) {
             return $val;
         }

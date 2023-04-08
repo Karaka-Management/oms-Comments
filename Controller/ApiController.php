@@ -307,8 +307,8 @@ final class ApiController extends Controller
     private function validateCommentCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['plain'] = empty($request->getData('plain')))
-            || ($val['list'] = empty($request->getData('list')))
+        if (($val['plain'] = !$request->hasData('plain'))
+            || ($val['list'] = !$request->hasData('list'))
         ) {
             return $val;
         }
@@ -477,7 +477,7 @@ final class ApiController extends Controller
     private function validateCommentVote(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['id'] = empty($request->getData('id')))
+        if (($val['id'] = !$request->hasData('id'))
             || ($val['type'] = ($request->getDataInt('type') < -1 || $request->getDataInt('type') > 1))
         ) {
             return $val;
