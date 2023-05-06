@@ -38,7 +38,7 @@ final class CommentListTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals(0, $this->list->getId());
+        self::assertEquals(0, $this->list->id);
         self::assertEquals([], $this->list->getComments());
     }
 

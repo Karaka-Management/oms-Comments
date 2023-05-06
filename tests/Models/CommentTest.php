@@ -41,11 +41,11 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals(0, $this->comment->getId());
+        self::assertEquals(0, $this->comment->id);
 
         $date = new \DateTime('now');
         self::assertEquals($date->format('Y-m-d'), $this->comment->createdAt->format('Y-m-d'));
-        self::assertEquals(0, $this->comment->createdBy->getId());
+        self::assertEquals(0, $this->comment->createdBy->id);
         self::assertEquals(0, $this->comment->list);
         self::assertEquals(0, $this->comment->ref);
         self::assertEquals('', $this->comment->title);
@@ -60,7 +60,7 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
     public function testCreatedByInputOutput() : void
     {
         $this->comment->createdBy = new NullAccount(1);
-        self::assertEquals(1, $this->comment->createdBy->getId());
+        self::assertEquals(1, $this->comment->createdBy->id);
     }
 
     /**
@@ -83,7 +83,7 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $this->comment->ref);
 
         $this->comment->ref = new NullComment(3);
-        self::assertEquals(3, $this->comment->ref->getId());
+        self::assertEquals(3, $this->comment->ref->id);
     }
 
     /**

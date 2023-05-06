@@ -24,7 +24,6 @@ use Modules\Comments\Models\CommentListMapper;
 use Modules\Comments\Models\CommentMapper;
 use Modules\Comments\Models\CommentVote;
 use Modules\Comments\Models\CommentVoteMapper;
-use Modules\Comments\Models\NullCommentVote;
 use Modules\Media\Models\CollectionMapper;
 use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\NullMedia;
@@ -191,22 +190,22 @@ final class ApiController extends Controller
             foreach ($uploaded as $media) {
                 $this->createModelRelation(
                     $request->header->account,
-                    $comment->getId(),
-                    $media->getId(),
+                    $comment->id,
+                    $media->id,
                     CommentMapper::class,
                     'media',
                     '',
                     $request->getOrigin()
                 );
 
-                $accountPath = '/Accounts/' . $account->getId() . ' ' . $account->login
+                $accountPath = '/Accounts/' . $account->id . ' ' . $account->login
                     . '/Comments/'
                     . $comment->createdAt->format('Y') . '/' . $comment->createdAt->format('m')
-                    . '/' . $comment->getId();
+                    . '/' . $comment->id;
 
                 $ref            = new Reference();
                 $ref->name      = $media->name;
-                $ref->source    = new NullMedia($media->getId());
+                $ref->source    = new NullMedia($media->id);
                 $ref->createdBy = new NullAccount($request->header->account);
                 $ref->setVirtualPath($accountPath);
 
@@ -216,14 +215,14 @@ final class ApiController extends Controller
                     $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
                         $accountPath,
                         $request->header->account,
-                        __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $account->getId() . '/Comments/' . $comment->createdAt->format('Y') . '/' . $comment->createdAt->format('m') . '/' . $comment->getId()
+                        __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $account->id . '/Comments/' . $comment->createdAt->format('Y') . '/' . $comment->createdAt->format('m') . '/' . $comment->id
                     );
                 }
 
                 $this->createModelRelation(
                     $request->header->account,
-                    $collection->getId(),
-                    $ref->getId(),
+                    $collection->id,
+                    $ref->id,
                     CollectionMapper::class,
                     'sources',
                     '',
@@ -240,8 +239,8 @@ final class ApiController extends Controller
                 $media = MediaMapper::get()->where('id', (int) $file)->limit(1)->execute();
                 $this->createModelRelation(
                     $request->header->account,
-                    $comment->getId(),
-                    $media->getId(),
+                    $comment->id,
+                    $media->id,
                     CommentMapper::class,
                     'media',
                     '',
@@ -250,7 +249,7 @@ final class ApiController extends Controller
 
                 $ref            = new Reference();
                 $ref->name      = $media->name;
-                $ref->source    = new NullMedia($media->getId());
+                $ref->source    = new NullMedia($media->id);
                 $ref->createdBy = new NullAccount($request->header->account);
                 $ref->setVirtualPath($path);
 
@@ -266,8 +265,8 @@ final class ApiController extends Controller
 
                 $this->createModelRelation(
                     $request->header->account,
-                    $collection->getId(),
-                    $ref->getId(),
+                    $collection->id,
+                    $ref->id,
                     CollectionMapper::class,
                     'sources',
                     '',
@@ -292,7 +291,7 @@ final class ApiController extends Controller
             . $comment->createdAt->format('Y') . '/'
             . $comment->createdAt->format('m') . '/'
             . $comment->createdAt->format('d') . '/'
-            . $comment->getId();
+            . $comment->id;
     }
 
     /**
@@ -448,7 +447,7 @@ final class ApiController extends Controller
         /** @var \Modules\Comments\Models\CommentVote $vote */
         $vote = CommentVoteMapper::findVote((int) $request->getData('id'), $request->header->account);
 
-        if ($vote instanceof NullCommentVote) {
+        if ($vote->id === 0) {
             $new            = new CommentVote();
             $new->score     = (int) $request->getData('type');
             $new->comment   = (int) $request->getData('id');

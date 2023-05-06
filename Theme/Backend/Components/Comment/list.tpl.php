@@ -23,7 +23,7 @@ $comments = $this->commentList->getComments();
     <div class="col-xs-12">
         <section class="portlet">
             <div class="portlet-body">
-                <form id="iComentListSettings" method="POST" action="<?= UriFactory::build('{/api}comment/list?id=' . $this->commentList->getId() . '{?}&csrf={$CSRF}'); ?>">
+                <form id="iComentListSettings" method="POST" action="<?= UriFactory::build('{/api}comment/list?id=' . $this->commentList->id . '{?}&csrf={$CSRF}'); ?>">
                         <div class="form-group">
                             <div class="input-control">
                                 <select name="commentlist_status">
@@ -73,7 +73,7 @@ foreach ($comments as $comment) : ?>
                 </div>
                 <div class="portlet-foot">
                     <?php $files = $comment->getMedia(); foreach ($files as $file) : ?>
-                         <span><a class="content" href="<?= UriFactory::build('{/base}/media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
+                         <span><a class="content" href="<?= UriFactory::build('{/base}/media/single?id=' . $file->id);?>"><?= $file->name; ?></a></span>
                     <?php endforeach; ?>
 
                     <?= $this->printHtml($this->renderUserName('%3$s %2$s %1$s', [$comment->createdBy->name1, $comment->createdBy->name2, $comment->createdBy->name3, $comment->createdBy->login ?? ''])); ?>

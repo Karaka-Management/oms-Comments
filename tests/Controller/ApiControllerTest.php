@@ -105,7 +105,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->header->account = 1;
 
         $this->module->apiCommentListCreate($request, $response);
-        self::assertGreaterThan(0, $lId = $response->get('')['response']->getId());
+        self::assertGreaterThan(0, $lId = $response->get('')['response']->id);
 
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
@@ -137,7 +137,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->header->account = 1;
 
         $this->module->apiCommentListCreate($request, $response);
-        self::assertGreaterThan(0, $lId = $response->get('')['response']->getId());
+        self::assertGreaterThan(0, $lId = $response->get('')['response']->id);
 
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
@@ -163,7 +163,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->setData('media', \json_encode([1]));
 
         $this->module->apiCommentCreate($request, $response);
-        self::assertGreaterThan(0, $cId = $response->get('')['response']->getId());
+        self::assertGreaterThan(0, $cId = $response->get('')['response']->id);
 
         //read
         $response = new HttpResponse();
@@ -236,7 +236,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->setData('type', '1');
 
         $this->module->apiChangeCommentVote($request, $response);
-        self::assertGreaterThan(0, $vId = $response->get('')['response']->getId());
+        self::assertGreaterThan(0, $vId = $response->get('')['response']->id);
 
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
@@ -246,6 +246,6 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $request->setData('type', '-1');
 
         $this->module->apiChangeCommentVote($request, $response);
-        self::assertEquals($vId, $response->get('')['response']->getId());
+        self::assertEquals($vId, $response->get('')['response']->id);
     }
 }
