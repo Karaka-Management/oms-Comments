@@ -200,7 +200,7 @@ final class ApiController extends Controller
 
                 $accountPath = '/Accounts/' . $account->id . ' ' . $account->login
                     . '/Comments/'
-                    . $comment->createdAt->format('Y') . '/' . $comment->createdAt->format('m')
+                    . $comment->createdAt->format('Y/m')
                     . '/' . $comment->id;
 
                 $ref            = new Reference();
@@ -215,7 +215,7 @@ final class ApiController extends Controller
                     $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
                         $accountPath,
                         $request->header->account,
-                        __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $account->id . '/Comments/' . $comment->createdAt->format('Y') . '/' . $comment->createdAt->format('m') . '/' . $comment->id
+                        __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $account->id . '/Comments/' . $comment->createdAt->format('Y/m') . '/' . $comment->id
                     );
                 }
 
@@ -288,9 +288,7 @@ final class ApiController extends Controller
     private function createCommentDir(Comment $comment) : string
     {
         return '/Modules/Comments/'
-            . $comment->createdAt->format('Y') . '/'
-            . $comment->createdAt->format('m') . '/'
-            . $comment->createdAt->format('d') . '/'
+            . $comment->createdAt->format('Y/m/d') . '/'
             . $comment->id;
     }
 
