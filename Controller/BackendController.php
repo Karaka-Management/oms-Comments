@@ -51,7 +51,7 @@ final class BackendController extends Controller
      */
     public function setUpCommentEditor(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        $head = $response->get('Content')->getData('head');
+        $head = $response->get('Content')->head;
         $head->addAsset(AssetType::JS, '/Modules/Editor/Controller.js', ['type' => 'module']);
     }
 
@@ -71,7 +71,7 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/Comments/Theme/Backend/comment-create');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1005301001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1005301001, $request, $response);
 
         return $view;
     }
@@ -92,7 +92,7 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/Comments/Theme/Backend/comment-list');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1005301001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1005301001, $request, $response);
 
         return $view;
     }
