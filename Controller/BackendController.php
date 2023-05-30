@@ -134,7 +134,7 @@ final class BackendController extends Controller
     public function apiCommentCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateCommentCreate($request))) {
-            $response->set('comment_create', new FormValidation($val));
+            $response->data['comment_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;

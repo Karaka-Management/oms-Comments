@@ -140,7 +140,7 @@ final class ApiController extends Controller
     public function apiCommentCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateCommentCreate($request))) {
-            $response->set('comment_create', new FormValidation($val));
+            $response->data['comment_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -149,7 +149,7 @@ final class ApiController extends Controller
         $comment = $this->createCommentFromRequest($request);
         $this->createModel($request->header->account, $comment, CommentMapper::class, 'comment', $request->getOrigin());
 
-        if (!empty($request->getFiles())
+        if (!empty($request->files)
             || !empty($request->getDataJson('media'))
         ) {
             $this->createCommentMedia($comment, $request);
@@ -175,7 +175,7 @@ final class ApiController extends Controller
         /** @var \Modules\Admin\Models\Account $account */
         $account = AccountMapper::get()->where('id', $request->header->account)->execute();
 
-        if (!empty($uploadedFiles = $request->getFiles())) {
+        if (!empty($uploadedFiles = $request->files)) {
             $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
                 [],
                 [],
@@ -436,7 +436,7 @@ final class ApiController extends Controller
     public function apiChangeCommentVote(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateCommentVote($request))) {
-            $response->set('qa_answer_vote', new FormValidation($val));
+            $response->data['qa_answer_vote'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
