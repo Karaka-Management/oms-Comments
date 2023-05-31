@@ -141,7 +141,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateCommentCreate($request))) {
             $response->data['comment_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status         = RequestStatusCode::R_400;
 
             return;
         }
@@ -437,7 +437,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateCommentVote($request))) {
             $response->data['qa_answer_vote'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status         = RequestStatusCode::R_400;
 
             return;
         }

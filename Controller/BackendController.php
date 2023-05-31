@@ -135,7 +135,7 @@ final class BackendController extends Controller
     {
         if (!empty($val = $this->validateCommentCreate($request))) {
             $response->data['comment_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status         = RequestStatusCode::R_400;
 
             return;
         }
