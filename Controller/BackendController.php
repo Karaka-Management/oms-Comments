@@ -51,7 +51,7 @@ final class BackendController extends Controller
      */
     public function setUpCommentEditor(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        $head = $response->get('Content')->head;
+        $head = $response->data['Content']->head;
         $head->addAsset(AssetType::JS, '/Modules/Editor/Controller.js', ['type' => 'module']);
     }
 
