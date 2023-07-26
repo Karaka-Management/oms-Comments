@@ -30,10 +30,8 @@ use Modules\Media\Models\NullMedia;
 use Modules\Media\Models\Reference;
 use Modules\Media\Models\ReferenceMapper;
 use phpOMS\Message\Http\RequestStatusCode;
-use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Model\Message\FormValidation;
 use phpOMS\Utils\Parser\Markdown\Markdown;
 
 /**
@@ -63,7 +61,7 @@ final class ApiController extends Controller
     {
         $commentList = $this->createCommentList();
         $this->createModel($request->header->account, $commentList, CommentListMapper::class, 'comment_list', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment List', 'Comment list successfully created', $commentList);
+        $this->createStandardCreateResponse($request, $response, $commentList);
     }
 
     /**
@@ -95,12 +93,19 @@ final class ApiController extends Controller
      */
     public function apiCommentListUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
+        if (!empty($val = $this->validateCommentListUpdate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidUpdateResponse($request, $response, $val);
+
+            return;
+        }
+
         /** @var \Modules\Comments\Models\CommentList $old */
         $old = CommentListMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $old = clone $old;
-        $new = $this->updateCommentListFromRequest($request);
+        $new = $this->updateCommentListFromRequest($request, clone $old);
+
         $this->updateModel($request->header->account, $old, $new, CommentListMapper::class, 'comment_list', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment List', 'Comment list successfully updated', $new);
+        $this->createStandardUpdateResponse($request, $response, $new);
     }
 
     /**
@@ -112,16 +117,35 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    private function updateCommentListFromRequest(RequestAbstract $request) : CommentList
+    private function updateCommentListFromRequest(RequestAbstract $request, CommentList $new) : CommentList
     {
-        /** @var \Modules\Comments\Models\CommentList $list */
-        $list              = CommentListMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $list->allowEdit   = $request->getDataBool('allow_edit') ?? $list->allowEdit;
-        $list->allowVoting = $request->getDataBool('allow_voting') ?? $list->allowVoting;
-        $list->allowFiles  = $request->getDataBool('allow_upload') ?? $list->allowFiles;
-        $list->status      = $request->getDataInt('commentlist_status') ?? $list->status;
+        $new->allowEdit   = $request->getDataBool('allow_edit') ?? $new->allowEdit;
+        $new->allowVoting = $request->getDataBool('allow_voting') ?? $new->allowVoting;
+        $new->allowFiles  = $request->getDataBool('allow_upload') ?? $new->allowFiles;
+        $new->status      = $request->getDataInt('commentlist_status') ?? $new->status;
 
-        return $list;
+        return $new;
+    }
+
+    /**
+     * Validate CommentList update request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @todo: implement
+     *
+     * @since 1.0.0
+     */
+    private function validateCommentListUpdate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['id'] = !$request->hasData('id'))) {
+            return $val;
+        }
+
+        return [];
     }
 
     /**
@@ -140,8 +164,8 @@ final class ApiController extends Controller
     public function apiCommentCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateCommentCreate($request))) {
-            $response->data['comment_create'] = new FormValidation($val);
-            $response->header->status         = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
@@ -155,7 +179,7 @@ final class ApiController extends Controller
             $this->createCommentMedia($comment, $request);
         }
 
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment', 'Comment successfully created', $comment);
+        $this->createStandardCreateResponse($request, $response, $comment);
     }
 
     /**
@@ -350,12 +374,19 @@ final class ApiController extends Controller
      */
     public function apiCommentUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
+        if (!empty($val = $this->validateCommentUpdate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidUpdateResponse($request, $response, $val);
+
+            return;
+        }
+
         /** @var \Modules\Comments\Models\Comment $old */
         $old = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $old = clone $old;
-        $new = $this->updateCommentFromRequest($request);
+        $new = $this->updateCommentFromRequest($request, clone $old);
+
         $this->updateModel($request->header->account, $old, $new, CommentMapper::class, 'comment', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment', 'Comment successfully updated', $new);
+        $this->createStandardUpdateResponse($request, $response, $new);
     }
 
     /**
@@ -367,16 +398,35 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    private function updateCommentFromRequest(RequestAbstract $request) : Comment
+    private function updateCommentFromRequest(RequestAbstract $request, Comment $new) : Comment
     {
-        /** @var \Modules\Comments\Models\Comment $comment */
-        $comment             = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $comment->title      = $request->getDataString('title') ?? $comment->title;
-        $comment->contentRaw = $request->getDataString('plain') ?? $comment->contentRaw;
-        $comment->content    = Markdown::parse((string) ($request->getData('plain') ?? $comment->contentRaw));
-        $comment->ref        = $request->getDataInt('ref');
+        $new->title      = $request->getDataString('title') ?? $new->title;
+        $new->contentRaw = $request->getDataString('plain') ?? $new->contentRaw;
+        $new->content    = Markdown::parse((string) ($request->getData('plain') ?? $new->contentRaw));
+        $new->ref        = $request->getDataInt('ref') ?? $new->ref;
 
-        return $comment;
+        return $new;
+    }
+
+    /**
+     * Validate CommentList update request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @todo: implement
+     *
+     * @since 1.0.0
+     */
+    private function validateCommentUpdate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['id'] = !$request->hasData('id'))) {
+            return $val;
+        }
+
+        return [];
     }
 
     /**
@@ -396,7 +446,7 @@ final class ApiController extends Controller
     {
         /** @var \Modules\Comments\Models\Comment $comment */
         $comment = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment', 'Comment successfully returned', $comment);
+        $this->createStandardReturnResponse($request, $response, $comment);
     }
 
     /**
@@ -417,7 +467,7 @@ final class ApiController extends Controller
         /** @var \Modules\Comments\Models\Comment $comment */
         $comment = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $comment, CommentMapper::class, 'comment', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Comment', 'Comment successfully deleted', $comment);
+        $this->createStandardDeleteResponse($request, $response, $comment);
     }
 
     /**
@@ -436,8 +486,8 @@ final class ApiController extends Controller
     public function apiChangeCommentVote(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateCommentVote($request))) {
-            $response->data['qa_answer_vote'] = new FormValidation($val);
-            $response->header->status         = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidUpdateResponse($request, $response, $val);
 
             return;
         }
@@ -452,13 +502,13 @@ final class ApiController extends Controller
             $new->createdBy = $request->header->account;
 
             $this->createModel($request->header->account, $new, CommentVoteMapper::class, 'comment_vote', $request->getOrigin());
-            $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Sucessfully voted.', $new);
+            $this->createStandardUpdateResponse($request, $response, $new);
         } else {
             $new        = clone $vote;
             $new->score = (int) $request->getData('type');
 
             $this->updateModel($request->header->account, $vote, $new, CommentVoteMapper::class, 'comment_vote', $request->getOrigin());
-            $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Vote', 'Vote successfully changed.', $new);
+            $this->createStandardUpdateResponse($request, $response, $new);
         }
     }
 
