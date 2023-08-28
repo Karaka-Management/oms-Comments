@@ -402,7 +402,7 @@ final class ApiController extends Controller
     {
         $new->title      = $request->getDataString('title') ?? $new->title;
         $new->contentRaw = $request->getDataString('plain') ?? $new->contentRaw;
-        $new->content    = Markdown::parse((string) ($request->getData('plain') ?? $new->contentRaw));
+        $new->content    = Markdown::parse($request->getDataString('plain') ?? $new->contentRaw);
         $new->ref        = $request->getDataInt('ref') ?? $new->ref;
 
         return $new;
