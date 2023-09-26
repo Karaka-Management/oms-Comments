@@ -50,8 +50,10 @@ final class BackendController extends Controller
      */
     public function setUpCommentEditor(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        $head = $response->data['Content']->head;
-        $head->addAsset(AssetType::JS, '/Modules/Editor/Controller.js', ['type' => 'module']);
+        $head  = $response->data['Content']->head;
+        $nonce = $this->app->appSettings->getOption('script-nonce');
+
+        $head->addAsset(AssetType::JS, '/Modules/Editor/Controller.js', ['nonce' => $nonce, 'type' => 'module']);
     }
 
     /**
