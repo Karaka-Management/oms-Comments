@@ -48,7 +48,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -56,7 +56,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentListCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiCommentListCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         $commentList = $this->createCommentList();
         $this->createModel($request->header->account, $commentList, CommentListMapper::class, 'comment_list', $request->getOrigin());
@@ -80,7 +80,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -88,7 +88,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentListUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiCommentListUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateCommentListUpdate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -150,7 +150,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -158,7 +158,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiCommentCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateCommentCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -361,7 +361,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -369,7 +369,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiCommentUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateCommentUpdate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -431,7 +431,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -439,7 +439,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentGet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiCommentGet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var \Modules\Comments\Models\Comment $comment */
         $comment = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -451,7 +451,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -459,7 +459,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiCommentDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiCommentDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var \Modules\Comments\Models\Comment $comment */
         $comment = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -472,7 +472,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -480,7 +480,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiChangeCommentVote(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiChangeCommentVote(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateCommentVote($request))) {
             $response->header->status = RequestStatusCode::R_400;
