@@ -106,7 +106,7 @@ class Comment implements \JsonSerializable
      * @var Media[]
      * @since 1.0.0
      */
-    protected array $media = [];
+    public array $media = [];
 
     /**
      * Constructor.

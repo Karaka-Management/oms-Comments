@@ -38,7 +38,7 @@ class CommentList
      * @var array
      * @since 1.0.0
      */
-    private array $comments = [];
+    public array $comments = [];
 
     /**
      * Is active
