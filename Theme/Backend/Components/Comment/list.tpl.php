@@ -75,7 +75,12 @@ foreach ($comments as $comment) : ?>
                     <?php endforeach; ?>
                 </div>
                 <div class="portlet-foot">
-                    <?= $this->printHtml($this->renderUserName('%3$s %2$s %1$s', [$comment->createdBy->name1, $comment->createdBy->name2, $comment->createdBy->name3, $comment->createdBy->login ?? ''])); ?>
+                    <a class="content" href="<?= UriFactory::build('profile/single?{?}&id=' . $comment->createdBy->id); ?>">
+                    <?= $this->printHtml($this->renderUserName(
+                        '%3$s %2$s %1$s',
+                        [$comment->createdBy->name1, $comment->createdBy->name2, $comment->createdBy->name3, $comment->createdBy->login ?? '']
+                    )); ?>
+                    </a>
                     <span class="floatRight"><?= $comment->createdAt->format('Y-m-d H:i:s'); ?></span>
                 </div>
             </section>
