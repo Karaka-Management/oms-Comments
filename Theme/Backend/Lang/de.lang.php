@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 return ['Comments' => [
     'Created'   => 'Erstellt',
-    'Creator'   => 'Schöpfer',
+    'Creator'   => 'Ersteller',
     'Edit'      => 'Bearbeiten',
     'Upload'    => 'Hochladen',
     'Voting'    => 'Wählen',
