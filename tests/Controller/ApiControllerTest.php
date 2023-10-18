@@ -248,4 +248,14 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         $this->module->apiChangeCommentVote($request, $response);
         self::assertEquals($vId, $response->getDataArray('')['response']->id);
     }
+
+    public function testInvalidapiCommentUpdate() : void
+    {
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->header->account = 1;
+        $this->module->apiCommentUpdate($request, $response);
+        self::assertEquals(RequestStatusCode::R_400, $response->header->status);
+    }
 }
