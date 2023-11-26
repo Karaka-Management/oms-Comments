@@ -116,9 +116,9 @@ final class ApiController extends Controller
      */
     private function updateCommentListFromRequest(RequestAbstract $request, CommentList $new) : CommentList
     {
-        $new->allowEdit   = $request->getDataBool('allow_edit') ?? $new->allowEdit;
-        $new->allowVoting = $request->getDataBool('allow_voting') ?? $new->allowVoting;
-        $new->allowFiles  = $request->getDataBool('allow_upload') ?? $new->allowFiles;
+        $new->allowEdit   = $request->getDataBool('allow_edit') ?? false;
+        $new->allowVoting = $request->getDataBool('allow_voting') ?? false;
+        $new->allowFiles  = $request->getDataBool('allow_upload') ?? false;
         $new->status      = $request->getDataInt('commentlist_status') ?? $new->status;
 
         return $new;
