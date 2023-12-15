@@ -19,7 +19,7 @@ use phpOMS\Uri\UriFactory;
     <div class="col-xs-12">
         <section class="portlet">
             <form id="commentCreate" class="Comments_create" method="PUT" action="<?= UriFactory::build('{/api}comment/list?id={!#commentCreate [name=comment]}&csrf={$CSRF}'); ?>">
-                <div class="portlet-head">Create Comment</div>
+                <div class="portlet-head"><?= $this->getHtml('Comment', 'Comments', 'Backend'); ?></div>
                 <div class="portlet-body">
                     <textarea name="comment"></textarea>
                 </div>

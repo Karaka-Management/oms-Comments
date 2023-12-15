@@ -16,9 +16,11 @@ return ['Comments' => [
     'Created'   => 'Erstellt',
     'Creator'   => 'Ersteller',
     'Edit'      => 'Bearbeiten',
+    'Comments'      => 'Kommentare',
+    'Comment'      => 'Kommentar',
     'Upload'    => 'Hochladen',
     'Voting'    => 'Wählen',
     'lstatus-1' => 'Aktiv',
-    'lstatus-2' => 'Inaktiv',
-    'lstatus-3' => 'Gesperrt',
+    'lstatus-2' => 'Gesperrt',
+    'lstatus-3' => 'Inaktiv',
 ]];

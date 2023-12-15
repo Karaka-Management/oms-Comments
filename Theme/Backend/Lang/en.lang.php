@@ -15,10 +15,12 @@ declare(strict_types=1);
 return ['Comments' => [
     'Created'   => 'Created',
     'Creator'   => 'Creator',
+    'Comment'   => 'Comment',
+    'Comments'   => 'Comments',
     'Edit'      => 'Edit',
     'Upload'    => 'Upload',
     'Voting'    => 'Voting',
     'lstatus-1' => 'Active',
-    'lstatus-2' => 'Inactive',
-    'lstatus-3' => 'Locked',
+    'lstatus-2' => 'Locked',
+    'lstatus-3' => 'Inactive',
 ]];
