@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 use phpOMS\Uri\UriFactory;
 
+/** @var \Modules\Comments\Theme\Backend\Components\Comment\CreateView $this */
 ?>
 <div class="row">
     <div class="col-xs-12">

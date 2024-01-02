@@ -36,7 +36,7 @@ use phpOMS\Views\View;
 final class BackendController extends Controller
 {
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -52,11 +52,11 @@ final class BackendController extends Controller
         $head  = $response->data['Content']->head;
         $nonce = $this->app->appSettings->getOption('script-nonce');
 
-        $head->addAsset(AssetType::JS, '/Modules/Editor/Controller.js', ['nonce' => $nonce, 'type' => 'module']);
+        $head->addAsset(AssetType::JS, 'Modules/Editor/Controller.js', ['nonce' => $nonce, 'type' => 'module']);
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -77,7 +77,7 @@ final class BackendController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -119,7 +119,7 @@ final class BackendController extends Controller
     }
 
     /**
-     * Routing end-point for application behaviour.
+     * Routing end-point for application behavior.
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response

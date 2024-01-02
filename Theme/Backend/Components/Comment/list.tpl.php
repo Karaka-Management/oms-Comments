@@ -15,6 +15,7 @@ declare(strict_types=1);
 use Modules\Comments\Models\CommentListStatus;
 use phpOMS\Uri\UriFactory;
 
+/** @var \Modules\Comments\Theme\Backend\Components\Comment\ListView $this */
 /** @var \Modules\Comments\Models\Comment[] $comments */
 $comments = $this->commentList->getComments();
 ?>

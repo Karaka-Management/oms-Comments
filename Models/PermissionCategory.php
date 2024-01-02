@@ -17,7 +17,7 @@ namespace Modules\Comments\Models;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Permision state enum.
+ * Permission category enum.
  *
  * @package Modules\Comments\Models
  * @license OMS License 2.0
