@@ -73,18 +73,6 @@ class CommentList
     public bool $allowFiles = true;
 
     /**
-     * Get id.
-     *
-     * @return int Model id
-     *
-     * @since 1.0.0
-     */
-    public function getId() : int
-    {
-        return $this->id;
-    }
-
-    /**
      * Get the comments
      *
      * @return int[]|Comment[]

@@ -71,12 +71,12 @@ foreach ($comments as $comment) : ?>
             <section class="portlet">
                 <div class="portlet-body">
                     <article><?= $comment->content; ?></article>
-                    <?php $files = $comment->getMedia(); foreach ($files as $file) : ?>
-                         <span><a class="content" href="<?= UriFactory::build('{/base}/media/single?id=' . $file->id);?>"><?= $file->name; ?></a></span>
+                    <?php $files = $comment->files; foreach ($files as $file) : ?>
+                         <span><a class="content" href="<?= UriFactory::build('{/base}/media/view?id=' . $file->id);?>"><?= $file->name; ?></a></span>
                     <?php endforeach; ?>
                 </div>
                 <div class="portlet-foot">
-                    <a class="content" href="<?= UriFactory::build('profile/single?{?}&id=' . $comment->createdBy->id); ?>">
+                    <a class="content" href="<?= UriFactory::build('profile/view?{?}&id=' . $comment->createdBy->id); ?>">
                     <?= $this->printHtml($this->renderUserName(
                         '%3$s %2$s %1$s',
                         [$comment->createdBy->name1, $comment->createdBy->name2, $comment->createdBy->name3, $comment->createdBy->login ?? '']

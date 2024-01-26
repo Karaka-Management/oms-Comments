@@ -16,7 +16,6 @@ namespace Modules\Comments\Models;
 
 use Modules\Admin\Models\Account;
 use Modules\Admin\Models\NullAccount;
-use Modules\Media\Models\Media;
 
 /**
  * Comment class.
@@ -101,14 +100,6 @@ class Comment implements \JsonSerializable
     public $ref = null;
 
     /**
-     * Media files
-     *
-     * @var Media[]
-     * @since 1.0.0
-     */
-    public array $media = [];
-
-    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -117,44 +108,6 @@ class Comment implements \JsonSerializable
     {
         $this->createdBy = new NullAccount();
         $this->createdAt = new \DateTimeImmutable();
-    }
-
-    /**
-     * Get id.
-     *
-     * @return int Model id
-     *
-     * @since 1.0.0
-     */
-    public function getId() : int
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set the status
-     *
-     * @param int $status Status
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setStatus(int $status) : void
-    {
-        $this->status = $status;
-    }
-
-    /**
-     * Get the status
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getStatus() : int
-    {
-        return $this->status;
     }
 
     /**
@@ -174,29 +127,5 @@ class Comment implements \JsonSerializable
         ];
     }
 
-    /**
-     * Get all media
-     *
-     * @return Media[]
-     *
-     * @since 1.0.0
-     */
-    public function getMedia() : array
-    {
-        return $this->media;
-    }
-
-    /**
-     * Add media
-     *
-     * @param Media $media Media to add
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function addMedia(Media $media) : void
-    {
-        $this->media[] = $media;
-    }
+    use \Modules\Media\Models\MediaListTrait;
 }

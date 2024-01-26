@@ -21,6 +21,7 @@ use Modules\Comments\Models\Comment;
 use Modules\Comments\Models\CommentList;
 use Modules\Comments\Models\CommentListMapper;
 use Modules\Comments\Models\CommentMapper;
+use Modules\Comments\Models\CommentStatus;
 use Modules\Comments\Models\CommentVote;
 use Modules\Comments\Models\CommentVoteMapper;
 use Modules\Media\Models\CollectionMapper;
@@ -119,7 +120,7 @@ final class ApiController extends Controller
         $new->allowEdit   = $request->getDataBool('allow_edit') ?? false;
         $new->allowVoting = $request->getDataBool('allow_voting') ?? false;
         $new->allowFiles  = $request->getDataBool('allow_upload') ?? false;
-        $new->status      = $request->getDataInt('commentlist_status') ?? $new->status;
+        $new->status      = CommentStatus::tryFromValue($request->getDataInt('commentlist_status')) ?? $new->status;
 
         return $new;
     }

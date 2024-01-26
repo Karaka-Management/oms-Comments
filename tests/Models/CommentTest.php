@@ -18,7 +18,6 @@ use Modules\Admin\Models\NullAccount;
 use Modules\Comments\Models\Comment;
 use Modules\Comments\Models\CommentStatus;
 use Modules\Comments\Models\NullComment;
-use Modules\Media\Models\Media;
 
 /**
  * @internal
@@ -50,7 +49,7 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $this->comment->ref);
         self::assertEquals('', $this->comment->title);
         self::assertEquals('', $this->comment->content);
-        self::assertEquals([], $this->comment->getMedia());
+        self::assertEquals([], $this->comment->files);
     }
 
     /**
@@ -110,26 +109,6 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
      * @covers Modules\Comments\Models\Comment
      * @group module
      */
-    public function testStatusInputOutput() : void
-    {
-        $this->comment->setStatus(CommentStatus::INVISIBLE);
-        self::assertEquals(CommentStatus::INVISIBLE, $this->comment->getStatus());
-    }
-
-    /**
-     * @covers Modules\Comments\Models\Comment
-     * @group module
-     */
-    public function testMediaInputOutput() : void
-    {
-        $this->comment->addMedia(new Media());
-        self::assertCount(1, $this->comment->getMedia());
-    }
-
-    /**
-     * @covers Modules\Comments\Models\Comment
-     * @group module
-     */
     public function testSerialize() : void
     {
         $this->comment->title     = 'Title';
@@ -144,12 +123,12 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [
-                'id'           => 0,
-                'title'        => 'Title',
-                'content'      => 'Content',
-                'list'         => 2,
-                'ref'          => 1,
-                'status'       => CommentStatus::VISIBLE,
+                'id'      => 0,
+                'title'   => 'Title',
+                'content' => 'Content',
+                'list'    => 2,
+                'ref'     => 1,
+                'status'  => CommentStatus::VISIBLE,
             ],
             $serialized
         );

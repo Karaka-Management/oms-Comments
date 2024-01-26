@@ -73,7 +73,7 @@ final class CommentMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const HAS_MANY = [
-        'media'        => [
+        'files' => [
             'mapper'   => MediaMapper::class,
             'table'    => 'comments_comment_media',
             'external' => 'comments_comment_media_dst',
