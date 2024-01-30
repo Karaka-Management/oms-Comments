@@ -215,7 +215,7 @@ final class ApiController extends Controller
                     $comment->id,
                     $media->id,
                     CommentMapper::class,
-                    'media',
+                    'files',
                     '',
                     $request->getOrigin()
                 );
@@ -264,7 +264,7 @@ final class ApiController extends Controller
                     $comment->id,
                     $media->id,
                     CommentMapper::class,
-                    'media',
+                    'files',
                     '',
                     $request->getOrigin()
                 );

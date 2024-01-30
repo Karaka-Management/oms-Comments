@@ -42,7 +42,7 @@ class ListView extends View
     /**
      * {@inheritdoc}
      */
-    public function __construct(?L11nManager $l11n = null, RequestAbstract $request, ResponseAbstract $response)
+    public function __construct(L11nManager $l11n, RequestAbstract $request, ResponseAbstract $response)
     {
         parent::__construct($l11n, $request, $response);
         $this->setTemplate('/Modules/Comments/Theme/Backend/Components/Comment/list');
