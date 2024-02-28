@@ -17,9 +17,10 @@ use phpOMS\Uri\UriFactory;
 
 /** @var \Modules\Comments\Theme\Backend\Components\Comment\ListView $this */
 /** @var \Modules\Comments\Models\Comment[] $comments */
-$comments = $this->commentList->getComments();
+$comments = $this->commentList?->getComments() ?? [];
 ?>
 
+<?php if (($this->commentList?->id ?? 0) !== 0) : ?>
 <div class="row">
     <div class="col-xs-12">
         <section class="portlet">
@@ -82,9 +83,10 @@ foreach ($comments as $comment) : ?>
                         [$comment->createdBy->name1, $comment->createdBy->name2, $comment->createdBy->name3, $comment->createdBy->login ?? '']
                     )); ?>
                     </a>
-                    <span class="floatRight"><?= $comment->createdAt->format('Y-m-d H:i:s'); ?></span>
+                    <span class="rf"><?= $comment->createdAt->format('Y-m-d H:i:s'); ?></span>
                 </div>
             </section>
         </div>
     </div>
 <?php endforeach; ?>
+<?php endif; ?>
