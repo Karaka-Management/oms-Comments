@@ -25,7 +25,7 @@ use Modules\Comments\Models\CommentListMapper;
 final class CommentListMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\Comments\Models\CommentListMapper
+     * @covers \Modules\Comments\Models\CommentListMapper
      * @group module
      */
     public function testCRUD() : void

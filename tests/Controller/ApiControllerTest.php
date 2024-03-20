@@ -93,7 +93,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Controller\ApiController
+     * @covers \Modules\Comments\Controller\ApiController
      * @group module
      */
     public function testApiCommentListCU() : void
@@ -124,7 +124,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Controller\ApiController
+     * @covers \Modules\Comments\Controller\ApiController
      * @group module
      */
     public function testApiCommentCRU() : void
@@ -190,7 +190,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Controller\ApiController
+     * @covers \Modules\Comments\Controller\ApiController
      * @group module
      */
     public function testApiCommentCreateInvalidData() : void
@@ -206,7 +206,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Controller\ApiController
+     * @covers \Modules\Comments\Controller\ApiController
      * @group module
      */
     public function testApiCommentVoteCreateInvalidData() : void
@@ -222,7 +222,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Controller\ApiController
+     * @covers \Modules\Comments\Controller\ApiController
      * @group module
      */
     public function testApiCommentVoteCreate() : void

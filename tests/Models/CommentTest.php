@@ -35,7 +35,7 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Models\Comment
+     * @covers \Modules\Comments\Models\Comment
      * @group module
      */
     public function testDefault() : void
@@ -53,7 +53,7 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Models\Comment
+     * @covers \Modules\Comments\Models\Comment
      * @group module
      */
     public function testCreatedByInputOutput() : void
@@ -63,7 +63,7 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Models\Comment
+     * @covers \Modules\Comments\Models\Comment
      * @group module
      */
     public function testListInputOutput() : void
@@ -73,7 +73,7 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Models\Comment
+     * @covers \Modules\Comments\Models\Comment
      * @group module
      */
     public function testRefInputOutput() : void
@@ -86,7 +86,7 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Models\Comment
+     * @covers \Modules\Comments\Models\Comment
      * @group module
      */
     public function testTitleInputOutput() : void
@@ -96,7 +96,7 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Models\Comment
+     * @covers \Modules\Comments\Models\Comment
      * @group module
      */
     public function testContentInputOutput() : void
@@ -106,7 +106,7 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Models\Comment
+     * @covers \Modules\Comments\Models\Comment
      * @group module
      */
     public function testSerialize() : void

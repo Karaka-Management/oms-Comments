@@ -33,7 +33,7 @@ final class CommentListTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Models\CommentList
+     * @covers \Modules\Comments\Models\CommentList
      * @group module
      */
     public function testDefault() : void
@@ -43,7 +43,7 @@ final class CommentListTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Models\CommentList
+     * @covers \Modules\Comments\Models\CommentList
      * @group module
      */
     public function testGetSet() : void

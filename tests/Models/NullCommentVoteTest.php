@@ -22,7 +22,7 @@ use Modules\Comments\Models\NullCommentVote;
 final class NullCommentVoteTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\Comments\Models\NullCommentVote
+     * @covers \Modules\Comments\Models\NullCommentVote
      * @group module
      */
     public function testNull() : void
@@ -31,7 +31,7 @@ final class NullCommentVoteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Models\NullCommentVote
+     * @covers \Modules\Comments\Models\NullCommentVote
      * @group module
      */
     public function testId() : void
@@ -41,7 +41,7 @@ final class NullCommentVoteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Models\NullCommentVote
+     * @covers \Modules\Comments\Models\NullCommentVote
      * @group module
      */
     public function testJsonSerialize() : void

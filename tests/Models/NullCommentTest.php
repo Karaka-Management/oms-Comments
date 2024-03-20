@@ -22,7 +22,7 @@ use Modules\Comments\Models\NullComment;
 final class NullCommentTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\Comments\Models\NullComment
+     * @covers \Modules\Comments\Models\NullComment
      * @group module
      */
     public function testNull() : void
@@ -31,7 +31,7 @@ final class NullCommentTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Models\NullComment
+     * @covers \Modules\Comments\Models\NullComment
      * @group module
      */
     public function testId() : void
@@ -41,7 +41,7 @@ final class NullCommentTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Models\NullComment
+     * @covers \Modules\Comments\Models\NullComment
      * @group module
      */
     public function testJsonSerialize() : void

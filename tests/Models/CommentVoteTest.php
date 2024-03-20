@@ -32,7 +32,7 @@ final class CommentVoteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Models\CommentVote
+     * @covers \Modules\Comments\Models\CommentVote
      * @group module
      */
     public function testDefault() : void
@@ -45,7 +45,7 @@ final class CommentVoteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Models\CommentVote
+     * @covers \Modules\Comments\Models\CommentVote
      * @group module
      */
     public function testScoreInputOutput() : void
@@ -55,7 +55,7 @@ final class CommentVoteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\Comments\Models\CommentVote
+     * @covers \Modules\Comments\Models\CommentVote
      * @group module
      */
     public function testCommentInputOutput() : void
