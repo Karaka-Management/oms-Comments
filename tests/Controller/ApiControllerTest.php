@@ -34,10 +34,10 @@ use phpOMS\System\MimeType;
 use phpOMS\Utils\TestUtils;
 
 /**
- * @testdox Modules\Comments\tests\Controller\ApiControllerTest: Comments api controller
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Comments\Controller\ApiController::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('Modules\Comments\tests\Controller\ApiControllerTest: Comments api controller')]
 final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 {
     protected ApplicationAbstract $app;
@@ -92,10 +92,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         TestUtils::setMember($this->module, 'app', $this->app);
     }
 
-    /**
-     * @covers \Modules\Comments\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiCommentListCU() : void
     {
         $response = new HttpResponse();
@@ -123,10 +120,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $response->getDataArray('')['response']->status);
     }
 
-    /**
-     * @covers \Modules\Comments\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiCommentCRU() : void
     {
         // create
@@ -189,10 +183,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('New plain', $response->getDataArray('')['response']->contentRaw);
     }
 
-    /**
-     * @covers \Modules\Comments\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiCommentCreateInvalidData() : void
     {
         $response = new HttpResponse();
@@ -205,10 +196,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 
-    /**
-     * @covers \Modules\Comments\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiCommentVoteCreateInvalidData() : void
     {
         $response = new HttpResponse();
@@ -221,10 +209,7 @@ final class ApiControllerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 
-    /**
-     * @covers \Modules\Comments\Controller\ApiController
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiCommentVoteCreate() : void
     {
         $response = new HttpResponse();

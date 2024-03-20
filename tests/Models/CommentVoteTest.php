@@ -19,6 +19,7 @@ use Modules\Comments\Models\CommentVote;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Comments\Models\CommentVote::class)]
 final class CommentVoteTest extends \PHPUnit\Framework\TestCase
 {
     private CommentVote $vote;
@@ -31,10 +32,7 @@ final class CommentVoteTest extends \PHPUnit\Framework\TestCase
         $this->vote = new CommentVote();
     }
 
-    /**
-     * @covers \Modules\Comments\Models\CommentVote
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->vote->id);
@@ -44,20 +42,14 @@ final class CommentVoteTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\DateTimeImmutable', $this->vote->createdAt);
     }
 
-    /**
-     * @covers \Modules\Comments\Models\CommentVote
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testScoreInputOutput() : void
     {
         $this->vote->score = 1;
         self::assertEquals(1, $this->vote->score);
     }
 
-    /**
-     * @covers \Modules\Comments\Models\CommentVote
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testCommentInputOutput() : void
     {
         $this->vote->comment = 1;

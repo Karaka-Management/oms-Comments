@@ -22,6 +22,7 @@ use Modules\Comments\Models\NullComment;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Comments\Models\Comment::class)]
 final class CommentTest extends \PHPUnit\Framework\TestCase
 {
     private Comment $comment;
@@ -34,10 +35,7 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
         $this->comment = new Comment();
     }
 
-    /**
-     * @covers \Modules\Comments\Models\Comment
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->comment->id);
@@ -52,30 +50,21 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $this->comment->files);
     }
 
-    /**
-     * @covers \Modules\Comments\Models\Comment
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testCreatedByInputOutput() : void
     {
         $this->comment->createdBy = new NullAccount(1);
         self::assertEquals(1, $this->comment->createdBy->id);
     }
 
-    /**
-     * @covers \Modules\Comments\Models\Comment
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testListInputOutput() : void
     {
         $this->comment->list = 3;
         self::assertEquals(3, $this->comment->list);
     }
 
-    /**
-     * @covers \Modules\Comments\Models\Comment
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testRefInputOutput() : void
     {
         $this->comment->ref = 2;
@@ -85,30 +74,21 @@ final class CommentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(3, $this->comment->ref->id);
     }
 
-    /**
-     * @covers \Modules\Comments\Models\Comment
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testTitleInputOutput() : void
     {
         $this->comment->title = 'Test Title';
         self::assertEquals('Test Title', $this->comment->title);
     }
 
-    /**
-     * @covers \Modules\Comments\Models\Comment
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testContentInputOutput() : void
     {
         $this->comment->content = 'Test Content';
         self::assertEquals('Test Content', $this->comment->content);
     }
 
-    /**
-     * @covers \Modules\Comments\Models\Comment
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testSerialize() : void
     {
         $this->comment->title     = 'Title';

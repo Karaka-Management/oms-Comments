@@ -25,12 +25,10 @@ use Modules\Comments\Models\CommentVoteMapper;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Comments\Models\CommentVoteMapper::class)]
 final class CommentVoteMapperTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \Modules\Comments\Models\CommentVoteMapper
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testCR() : void
     {
         $list = new CommentList();

@@ -22,12 +22,10 @@ use Modules\Comments\Models\CommentListMapper;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Comments\Models\CommentListMapper::class)]
 final class CommentListMapperTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \Modules\Comments\Models\CommentListMapper
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testCRUD() : void
     {
         $list = new CommentList();

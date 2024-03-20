@@ -19,31 +19,23 @@ use Modules\Comments\Models\NullCommentVote;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Comments\Models\NullCommentVote::class)]
 final class NullCommentVoteTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \Modules\Comments\Models\NullCommentVote
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testNull() : void
     {
         self::assertInstanceOf('\Modules\Comments\Models\CommentVote', new NullCommentVote());
     }
 
-    /**
-     * @covers \Modules\Comments\Models\NullCommentVote
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testId() : void
     {
         $null = new NullCommentVote(2);
         self::assertEquals(2, $null->id);
     }
 
-    /**
-     * @covers \Modules\Comments\Models\NullCommentVote
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testJsonSerialize() : void
     {
         $null = new NullCommentVote(2);

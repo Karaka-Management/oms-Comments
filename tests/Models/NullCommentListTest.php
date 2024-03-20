@@ -19,31 +19,23 @@ use Modules\Comments\Models\NullCommentList;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\Comments\Models\NullCommentList::class)]
 final class NullCommentListTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \Modules\Comments\Models\NullCommentList
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testNull() : void
     {
         self::assertInstanceOf('\Modules\Comments\Models\CommentList', new NullCommentList());
     }
 
-    /**
-     * @covers \Modules\Comments\Models\NullCommentList
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testId() : void
     {
         $null = new NullCommentList(2);
         self::assertEquals(2, $null->id);
     }
 
-    /**
-     * @covers \Modules\Comments\Models\NullCommentList
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testJsonSerialize() : void
     {
         $null = new NullCommentList(2);
