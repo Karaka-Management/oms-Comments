@@ -83,7 +83,7 @@ final class CommentVoteMapper extends DataMapperFactory
         $results = self::getAll()
             ->where('comment', $comment)
             ->where('createdBy', $account)
-            ->execute();
+            ->executeGetArray();
 
         return empty($results) ? new NullCommentVote() : \reset($results);
     }
