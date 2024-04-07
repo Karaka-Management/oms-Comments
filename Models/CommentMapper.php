@@ -19,7 +19,7 @@ use Modules\Media\Models\MediaMapper;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
- * Mapper class.
+ * Comment mapper class.
  *
  * @package Modules\Comments\Models
  * @license OMS License 2.0

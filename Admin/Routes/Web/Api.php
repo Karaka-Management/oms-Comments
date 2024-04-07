@@ -23,6 +23,7 @@ return [
             'dest'       => '\Modules\Comments\Controller\ApiController:apiCommentCreate',
             'verb'       => RouteVerb::PUT,
             'csrf'       => true,
+            'active' => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -33,6 +34,7 @@ return [
             'dest'       => '\Modules\Comments\Controller\ApiController:apiCommentUpdate',
             'verb'       => RouteVerb::SET,
             'csrf'       => true,
+            'active' => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -45,6 +47,7 @@ return [
             'dest'       => '\Modules\Comments\Controller\ApiController:apiCommentListUpdate',
             'verb'       => RouteVerb::SET,
             'csrf'       => true,
+            'active' => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -57,6 +60,7 @@ return [
             'dest'       => '\Modules\Comments\Controller\ApiController:apiChangeCommentVote',
             'verb'       => RouteVerb::PUT | RouteVerb::SET,
             'csrf'       => true,
+            'active' => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,

@@ -17,7 +17,7 @@ namespace Modules\Comments\Models;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
- * Mapper class.
+ * CommentVote mapper class.
  *
  * @package Modules\Comments\Models
  * @license OMS License 2.0
