@@ -25,7 +25,7 @@ $comments = $this->commentList?->getComments() ?? [];
     <div class="col-xs-12">
         <section class="portlet">
             <div class="portlet-body">
-                <form id="iComentListSettings" method="POST" action="<?= UriFactory::build('{/api}comment/list?id=' . $this->commentList->id . '{?}&csrf={$CSRF}'); ?>">
+                <form id="iCommentListSettings" method="POST" action="<?= UriFactory::build('{/api}comment/list?id=' . $this->commentList->id . '&csrf={$CSRF}'); ?>">
                         <div class="form-group">
                             <div class="input-control">
                                 <select name="commentlist_status">
@@ -66,26 +66,60 @@ $comments = $this->commentList?->getComments() ?? [];
 </div>
 
 <?php
-foreach ($comments as $comment) : ?>
+foreach ($comments as $comment) :
+    $editPossible = $this->commentList->status === CommentListStatus::ACTIVE
+        && $this->commentList->allowEdit
+        && $comment->createdBy->id === $this->request->header->account;
+?>
     <div class="row">
         <div class="col-xs-12">
-            <section class="portlet">
+            <?php if ($editPossible) : ?>
+                <form id="iComment-<?= $comment->id; ?>" method="POST" action="<?= UriFactory::build('{/api}comment/post?id=' . $comment->id . '{?}&csrf={$CSRF}'); ?>"
+                    data-ui-container="#iComment-<?= $comment->id; ?>"
+                    data-ui-element=".portlet"
+                    data-update-tpl="#iComment-<?= $comment->id; ?> .portlet-tpl">
+                <template class="portlet-tpl">
+                    <section class="portlet">
+                        <div class="portlet-body">
+                            <div class="form-group">
+                            <textarea id="iComment" name="comment"
+                                data-tpl-value="/comment" required></textarea>
+                            </div>
+                        </div>
+                        <div class="portlet-foot">
+                            <button class="save-form"><?= $this->getHtml('Save', '0', '0'); ?></button>
+                            <button class="cancel cancel-form"><?= $this->getHtml('Cancel', '0', '0'); ?></button>
+                        </div>
+                    </section>
+                </template>
+            <?php endif; ?>
+            <section class="portlet" data-id="<?= $comment->id; ?>">
                 <div class="portlet-body">
-                    <article><?= $comment->content; ?></article>
+                    <article id="iCommentRender-<?= $comment->id; ?>"<?php if ($editPossible) : ?>
+                        data-tpl-value="/comment"
+                        data-value="<?= $this->printTextarea($comment->contentRaw); ?>"<?php endif; ?>><?= $comment->content; ?></article>
                     <?php $files = $comment->files; foreach ($files as $file) : ?>
                          <span><a class="content" href="<?= UriFactory::build('{/base}/media/view?id=' . $file->id);?>"><?= $file->name; ?></a></span>
                     <?php endforeach; ?>
                 </div>
                 <div class="portlet-foot">
-                    <a class="content" href="<?= UriFactory::build('profile/view?{?}&id=' . $comment->createdBy->id); ?>">
+                    <a class="content" href="<?= UriFactory::build('{/base}/profile/view?{?}&id=' . $comment->createdBy->id); ?>">
                     <?= $this->printHtml($this->renderUserName(
                         '%3$s %2$s %1$s',
                         [$comment->createdBy->name1, $comment->createdBy->name2, $comment->createdBy->name3, $comment->createdBy->login ?? '']
                     )); ?>
                     </a>
-                    <span class="rf"><?= $comment->createdAt->format('Y-m-d H:i:s'); ?></span>
+                    <span><?= $comment->createdAt->format('Y-m-d H:i:s'); ?></span>
+                    <?php if ($editPossible) : ?>
+                    <div class="end-xs">
+                        <button class="update-form"><?= $this->getHtml('Edit', '0', '0'); ?></button>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </section>
+            <?php if ($editPossible) : ?>
+                </form>
+            <?php endif; ?>
         </div>
     </div>
 <?php endforeach; ?>
