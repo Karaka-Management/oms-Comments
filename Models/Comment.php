@@ -54,10 +54,10 @@ class Comment implements \JsonSerializable
     /**
      * Comment list this comment belongs to
      *
-     * @var int|CommentList
+     * @var int
      * @since 1.0.0
      */
-    public $list = 0;
+    public int $list = 0;
 
     /**
      * Title
