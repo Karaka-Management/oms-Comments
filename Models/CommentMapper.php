@@ -59,7 +59,7 @@ final class CommentMapper extends DataMapperFactory
         'createdBy' => [
             'mapper'   => AccountMapper::class,
             'external' => 'comments_comment_created_by',
-        ]
+        ],
     ];
 
     /**
