@@ -29,9 +29,9 @@ $comments = $this->commentList?->getComments() ?? [];
                         <div class="form-group">
                             <div class="input-control">
                                 <select name="commentlist_status">
-                                    <option value="<?= CommentListStatus::ACTIVE; ?>"<?= $this->commentList->status === CommentListStatus::ACTIVE ? ' selected' : ''; ?>><?= $this->getHtml('lstatus-' . CommentListStatus::ACTIVE); ?>
-                                    <option value="<?= CommentListStatus::INACTIVE; ?>"<?= $this->commentList->status === CommentListStatus::INACTIVE ? ' selected' : ''; ?>><?= $this->getHtml('lstatus-' . CommentListStatus::INACTIVE); ?>
-                                    <option value="<?= CommentListStatus::LOCKED; ?>"<?= $this->commentList->status === CommentListStatus::LOCKED ? ' selected' : ''; ?>><?= $this->getHtml('lstatus-' . CommentListStatus::LOCKED); ?>
+                                    <option value="<?= CommentListStatus::ACTIVE; ?>"<?= $this->commentList->status === CommentListStatus::ACTIVE ? ' selected' : ''; ?>><?= $this->getHtml(':lstatus-' . CommentListStatus::ACTIVE); ?>
+                                    <option value="<?= CommentListStatus::INACTIVE; ?>"<?= $this->commentList->status === CommentListStatus::INACTIVE ? ' selected' : ''; ?>><?= $this->getHtml(':lstatus-' . CommentListStatus::INACTIVE); ?>
+                                    <option value="<?= CommentListStatus::LOCKED; ?>"<?= $this->commentList->status === CommentListStatus::LOCKED ? ' selected' : ''; ?>><?= $this->getHtml(':lstatus-' . CommentListStatus::LOCKED); ?>
                                 </select>
                             </div>
                             <div class="input-control">

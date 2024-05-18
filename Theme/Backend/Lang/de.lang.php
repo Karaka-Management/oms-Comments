@@ -20,7 +20,7 @@ return ['Comments' => [
     'Comments'  => 'Kommentare',
     'Upload'    => 'Hochladen',
     'Voting'    => 'Wählen',
-    'lstatus-1' => 'Aktiv',
-    'lstatus-2' => 'Gesperrt',
-    'lstatus-3' => 'Inaktiv',
+    ':lstatus-1' => 'Aktiv',
+    ':lstatus-2' => 'Gesperrt',
+    ':lstatus-3' => 'Inaktiv',
 ]];
