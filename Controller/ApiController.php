@@ -95,7 +95,7 @@ final class ApiController extends Controller
         }
 
         /** @var \Modules\Comments\Models\CommentList $old */
-        $old = CommentListMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = CommentListMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
         $new = $this->updateCommentListFromRequest($request, clone $old);
 
         $this->updateModel($request->header->account, $old, $new, CommentListMapper::class, 'comment_list', $request->getOrigin());
@@ -313,7 +313,7 @@ final class ApiController extends Controller
         }
 
         /** @var \Modules\Comments\Models\Comment $old */
-        $old = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = CommentMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
         $new = $this->updateCommentFromRequest($request, clone $old);
 
         $this->updateModel($request->header->account, $old, $new, CommentMapper::class, 'comment', $request->getOrigin());
@@ -376,7 +376,7 @@ final class ApiController extends Controller
     public function apiCommentGet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var \Modules\Comments\Models\Comment $comment */
-        $comment = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $comment = CommentMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
         $this->createStandardReturnResponse($request, $response, $comment);
     }
 
@@ -396,7 +396,7 @@ final class ApiController extends Controller
     public function apiCommentDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var \Modules\Comments\Models\Comment $comment */
-        $comment = CommentMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $comment = CommentMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
         $this->deleteModel($request->header->account, $comment, CommentMapper::class, 'comment', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $comment);
     }
@@ -424,12 +424,12 @@ final class ApiController extends Controller
         }
 
         /** @var \Modules\Comments\Models\CommentVote $vote */
-        $vote = CommentVoteMapper::findVote((int) $request->getData('id'), $request->header->account);
+        $vote = CommentVoteMapper::findVote($request->getDataInt('id') ?? 0, $request->header->account);
 
         if ($vote->id === 0) {
             $new            = new CommentVote();
             $new->score     = (int) $request->getData('type');
-            $new->comment   = (int) $request->getData('id');
+            $new->comment   = $request->getDataInt('id') ?? 0;
             $new->createdBy = $request->header->account;
 
             $this->createModel($request->header->account, $new, CommentVoteMapper::class, 'comment_vote', $request->getOrigin());
